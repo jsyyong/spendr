@@ -21,3 +21,7 @@ body {
   right: 200px;
   background-color: white;
 }
+
+.userInput {
+  display: block;
+}
