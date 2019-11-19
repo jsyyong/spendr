@@ -10,7 +10,16 @@ class User extends Component {
           post: []
         }; 
       }
-
+      sendingUsername = async () => {
+let name = this.state.username
+let data = new FormData();
+data.append("username", name);
+let response = await fetch("/image-userPage", {method:"POST", body:data});
+let body = await response.text();
+console.log("/image-userPage response", body); // 8
+body = JSON.parse(body);
+      }
+      
       reload = async () => {
         let response = await fetch("/image-userPage");
         let body = await response.text();
@@ -19,17 +28,15 @@ class User extends Component {
         this.setState({ posts: body });
       };
       componentDidMount = () => {
+        this.sendingUsername();
         this.reload();
       };
       render = () => {
         return (
           <div>
-            <div>
               {this.state.posts.reverse().map(p => (
-                <Post key={p._id} contents={p} />
+                <div{p._id} contents={p} />
               ))}
-            </div>
-            <NewPost reload={this.reload} />
           </div>
         );
       };
