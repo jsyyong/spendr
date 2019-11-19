@@ -97,10 +97,9 @@ app.post("/new-upload", upload.single("img"), (req, res) => {
 //Details Image Endpoint
 app.post("/image-detailPage", upload.none(), (req, res) => {
   console.log("request to /image-detailPage");
-  let name = req.body.username;
   dbo
     .collection("posts")
-    .find({ seller: name, selling: true }) //frontend will choose which image to use from this array
+    .find({}) //frontend will choose which image to use from this array
     .toArray((err, ps) => {
       if (err) {
         console.log("error", err);
