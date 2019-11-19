@@ -1,5 +1,6 @@
-import React, { Component } from "react"; 
+import React, { Component } from "react";
 import { connect } from "react-redux";
+import UserHomePage from "./UserHomePage.jsx";
 
 class SignUp extends Component {
   constructor() {
@@ -38,21 +39,17 @@ class SignUp extends Component {
     }
   };
   render = () => {
-    if (this.state.username === undefined) {
-      // 3
-      return (
-        <div>
-          SignUp
-          <form onSubmit={this.submitHandlerSignUp}>
-            Username <input type="text" onChange={this.usernameChange} />
-            Password <input type="text" onChange={this.passwordChange} />
-            <input type="submit" value="login" />
-          </form>
-        </div>
-      ); // 3
-    } // 3
-    // return <Content />; // 3
-  };
+    return (
+      <div>
+        SignUp
+        <form onSubmit={this.submitHandlerSignUp}>
+          Username <input type="text" onChange={this.usernameChange} />
+          Password <input type="text" onChange={this.passwordChange} />
+          <input type="submit" value="login" />
+        </form>
+      </div>
+    ); // 3
+  }; // 3
 }
 
 let connectedSignUp = connect()(SignUp);

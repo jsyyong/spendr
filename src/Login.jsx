@@ -40,22 +40,17 @@ class Login extends Component {
     } // 9
   };
   render = () => {
-    // 3
-    if (this.state.username === undefined) {
-      // 3
-      return (
-        <div>
-          Login
-          <form onSubmit={this.submitHandlerLogin}>
-            Username <input type="text" onChange={this.usernameChange} />
-            Password <input type="text" onChange={this.passwordChange} />
-            <input type="submit" value="login" />
-          </form>
-        </div>
-      ); // 3
-    } // 3
+    return (
+      <div>
+        Login
+        <form onSubmit={this.submitHandlerLogin}>
+          Username <input type="text" onChange={this.usernameChange} />
+          Password <input type="text" onChange={this.passwordChange} />
+          <input type="submit" value="login" />
+        </form>
+      </div>
+    ); // 3
   };
 }
-
 let connectedLogin = connect()(Login);
 export default connectedLogin;

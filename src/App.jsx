@@ -2,6 +2,7 @@ import React, { Component } from "react"; // 1
 import { connect } from "react-redux";
 import SignUp from "./SignUp.jsx";
 import Login from "./Login.jsx";
+import UserHomePage from "./UserHomePage.jsx";
 class unconnectedApp extends Component {
   // 1
   constructor() {
@@ -26,7 +27,7 @@ class unconnectedApp extends Component {
   // 6
   render = () => {
     // 3
-    if (this.state.username === undefined) {
+    if (this.props.username === "") {
       // 3
       return (
         <div className="nav-bar">
@@ -34,9 +35,15 @@ class unconnectedApp extends Component {
           <Login />
         </div>
       ); // 3
-    } // 3
-    // return <Content />; // 3
+    } else {
+      return <UserHomePage username={this.props.username} />;
+    }
   };
 }
-let App = connect()(unconnectedApp);
+let mapStateToProps = st => {
+  return {
+    username: st.username
+  };
+};
+let App = connect(mapStateToProps)(unconnectedApp);
 export default App;

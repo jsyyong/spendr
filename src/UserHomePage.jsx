@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-class User extends Component {
-  constructor() {
-    super();
+class unconnectedUserHomePage extends Component {
+  constructor(props) {
+    super(props);
     this.state = {
-      username: this.state.username,
-      post: []
+      username: this.props.username,
+      posts: []
     };
   }
   sendingUsername = async () => {
@@ -28,16 +28,22 @@ class User extends Component {
     this.reload();
   };
   render = () => {
-    return (<>
-      <div>
+    return (
+      <>
+        <div>
           <p>test</p>
-      </div>
-      <div>
-        {this.state.posts.reverse().map(p => (
-          <div>{p} </div>
-        ))}
-      </div>
+        </div>
+        <div>
+          {this.state.posts.reverse().map(p => (
+            <div>{p} </div>
+          ))}
+        </div>
       </>
     );
   };
 }
+let mapStateToProps = st => {
+  return {};
+};
+let UserHomePage = connect(mapStateToProps)(unconnectedUserHomePage);
+export default UserHomePage;
