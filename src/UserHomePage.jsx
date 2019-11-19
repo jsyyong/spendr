@@ -28,7 +28,7 @@ class User extends Component {
     this.reload();
   };
   render = () => {
-    return (
+    return (<>
       <div>
           <p>test</p>
       </div>
@@ -37,6 +37,7 @@ class User extends Component {
           <div>{p} </div>
         ))}
       </div>
+      </>
     );
   };
 }
