@@ -8,7 +8,7 @@ ObjectID = require("mongodb").ObjectID; //convert string to objectID
 reloadMagic(app);
 
 app.use("/", express.static("build")); // Needed for the HTML and JS files
-app.use("/uploads", express.static("uploads")); // Needed for local assets
+app.use("/uploads", express.static("uploads"));
 let dbo = undefined;
 let url =
   "mongodb+srv://jeff:pwd123@cluster0-uckdj.mongodb.net/test?retryWrites=true&w=majority";
@@ -59,7 +59,7 @@ app.post("/signup", upload.none(), (req, res) => {
       return;
     }
     if (user === null) {
-      console.log(name + "is available!");
+      console.log(name + " is available!");
       dbo.collection("users").insertOne({ username: name, password: pwd });
       res.send(JSON.stringify({ success: true }));
       return;
@@ -73,15 +73,45 @@ app.post("/signup", upload.none(), (req, res) => {
 app.post("/new-upload", upload.single("img"), (req, res) => {
   console.log("request to /new-post. body: ", req.body);
   let description = req.body.description;
-  let file = req.file;
+  let brand = req.body.brand;
+  let size = req.body.size;
+  let price = req.body.price;
+  let stock = req.body.stock;
+  let seller = req.body.seller;
+  let file = req.file; // the image file
   let frontendPath = "/uploads/" + file.filename;
   dbo
     .collection("posts")
-    .insertOne({ description: description, frontendPath: frontendPath });
+    .insertOne({
+      description: description,
+      brand: brand,
+      size: size,
+      price: price,
+      stock: stock,
+      seller: seller,
+      frontendPath: frontendPath
+    });
   res.send(JSON.stringify({ success: true }));
 });
 
 //All Images Endpoint
+//Userpage Images Endpoint
+app.get("/image-userPage", (req, res) => {
+  console.log("request to /image-userPage");
+  let name = req.body.username;
+  dbo
+    .collection("posts")
+    .find({ username: name, selling: true }) //sort by everything the seller is selling. later on we will sort his wishlist and purchases
+    .toArray((err, ps) => {
+      if (err) {
+        console.log("error", err);
+        res.send("fail");
+        return;
+      }
+      console.log("posts", ps);
+      res.send(JSON.stringify(ps));
+    });
+});
 // Your endpoints go before this line
 
 app.all("/*", (req, res, next) => {
