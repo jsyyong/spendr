@@ -71,7 +71,7 @@ app.post("/signup", upload.none(), (req, res) => {
 
 //Upload Form Endpoint
 app.post("/new-upload", upload.single("img"), (req, res) => {
-  console.log("request to /new-post. body: ", req.body);
+  console.log("request to /new-upload. body: ", req.body);
   let description = req.body.description;
   let brand = req.body.brand;
   let size = req.body.size;
@@ -93,13 +93,32 @@ app.post("/new-upload", upload.single("img"), (req, res) => {
 });
 
 //All Images Endpoint
+
+//Details Image Endpoint
+app.post("/image-detailPage", upload.none(), (req, res) => {
+  console.log("request to /image-detailPage");
+  let name = req.body.username;
+  dbo
+    .collection("posts")
+    .find({ seller: name, selling: true }) //frontend will choose which image to use from this array
+    .toArray((err, ps) => {
+      if (err) {
+        console.log("error", err);
+        res.send("fail");
+        return;
+      }
+      console.log("detail posts", ps);
+      res.send(JSON.stringify(ps));
+    });
+});
+
 //Userpage Images Endpoint
 app.post("/image-userPage", upload.none(), (req, res) => {
   console.log("request to /image-userPage");
   let name = req.body.username;
   dbo
     .collection("posts")
-    .find({ username: name, selling: true }) //sort by everything the seller is selling. later on we will sort his wishlist and purchases
+    .find({ seller: name, selling: true }) //sort by everything the seller is selling. later on we will sort his wishlist and purchases
     .toArray((err, ps) => {
       if (err) {
         console.log("error", err);
