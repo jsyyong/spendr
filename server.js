@@ -12,7 +12,7 @@ app.use("/", express.static("public")); // Needed for local assets
 let dbo = undefined;
 let url =
   "mongodb+srv://jeff:pwd123@cluster0-uckdj.mongodb.net/test?retryWrites=true&w=majority";
-MongoClient.connect(url, { useNewUrlParser: true }, (err, db) => {
+MongoClient.connect(url, { useNewUrlParser: true , useUnifiedTopology: true }, (err, db) => {
   dbo = db.db("media-board");
 });
 // Your endpoints go after this line
