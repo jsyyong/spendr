@@ -1,6 +1,7 @@
 import React, { Component } from "react"; // 1
 import { connect } from "react-redux";
 import SignUp from "./SignUp.jsx";
+import Login from "./Login.jsx";
 class unconnectedApp extends Component {
   // 1
   constructor() {
@@ -22,25 +23,7 @@ class unconnectedApp extends Component {
     this.setState({ passwordInput: evt.target.value }); // 5
   }; // 5
 
-  submitHandlerLogin = async evt => {
-    // 6
-    evt.preventDefault(); // 6
-    console.log("username", this.state.username); // 6
-    console.log("password", this.state.passwordInput); // 6
-    let name = this.state.usernameInput; // 6
-    let data = new FormData(); // 7
-    data.append("username", name); // 7
-    data.append("password", this.state.passwordInput); // 7
-    let response = await fetch("/login", { method: "POST", body: data }); // 8
-    let body = await response.text(); // 8
-    console.log("/login response", body); // 8
-    body = JSON.parse(body); // 8
-    if (body.success) {
-      // 9
-      this.setState({ username: name }); // 9
-      this.props.dispatch({ type: "set-username", name: name });
-    } // 9
-  }; // 6
+  // 6
   render = () => {
     // 3
     if (this.state.username === undefined) {
@@ -48,12 +31,7 @@ class unconnectedApp extends Component {
       return (
         <div className="nav-bar">
           <SignUp />
-          Login
-          <form onSubmit={this.submitHandlerLogin}>
-            Username <input type="text" onChange={this.usernameChange} />
-            Password <input type="text" onChange={this.passwordChange} />
-            <input type="submit" value="login" />
-          </form>
+          <Login />
         </div>
       ); // 3
     } // 3

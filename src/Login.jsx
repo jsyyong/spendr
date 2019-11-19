@@ -1,7 +1,7 @@
-import React, { Component } from "react"; 
+import React, { Component } from "react";
 import { connect } from "react-redux";
 
-class SignUp extends Component {
+class Login extends Component {
   constructor() {
     // 2
     super(); // 2
@@ -20,30 +20,33 @@ class SignUp extends Component {
     // 5
     this.setState({ passwordInput: evt.target.value }); // 5
   };
-  submitHandlerSignUp = async evt => {
-    evt.preventDefault();
+  submitHandlerLogin = async evt => {
+    // 6
+    evt.preventDefault(); // 6
+    console.log("username", this.state.username); // 6
+    console.log("password", this.state.passwordInput); // 6
     let name = this.state.usernameInput; // 6
     let data = new FormData(); // 7
     data.append("username", name); // 7
     data.append("password", this.state.passwordInput); // 7
-    let response = await fetch("/signup", { method: "POST", body: data }); // 8
+    let response = await fetch("/login", { method: "POST", body: data }); // 8
     let body = await response.text(); // 8
-    console.log("/signup response", body); // 8
+    console.log("/login response", body); // 8
     body = JSON.parse(body); // 8
     if (body.success) {
       // 9
       this.setState({ username: name }); // 9
-      this.props.dispatch({ type: "signin" });
       this.props.dispatch({ type: "set-username", name: name });
-    }
+    } // 9
   };
   render = () => {
+    // 3
     if (this.state.username === undefined) {
       // 3
       return (
         <div>
-          SignUp
-          <form onSubmit={this.submitHandlerSignUp}>
+          Login
+          <form onSubmit={this.submitHandlerLogin}>
             Username <input type="text" onChange={this.usernameChange} />
             Password <input type="text" onChange={this.passwordChange} />
             <input type="submit" value="login" />
@@ -51,10 +54,8 @@ class SignUp extends Component {
         </div>
       ); // 3
     } // 3
-    // return <Content />; // 3
   };
 }
 
-let connectedSignUp = connect()(SignUp);
-
-export default connectedSignUp;
+let connectedLogin = connect()(Login);
+export default connectedLogin;
