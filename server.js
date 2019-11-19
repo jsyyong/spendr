@@ -70,8 +70,8 @@ app.post("/signup", upload.none(), (req, res) => {
 });
 
 //Upload Form Endpoint
-app.post("/new-upload", upload.single("img"), (req, res) => {
-  console.log("request to /new-upload. body: ", req.body);
+app.post("/createItem", upload.single("img"), (req, res) => {
+  console.log("request to /createItem. body: ", req.body);
   let description = req.body.description;
   let brand = req.body.brand;
   let size = req.body.size;
@@ -80,7 +80,7 @@ app.post("/new-upload", upload.single("img"), (req, res) => {
   let seller = req.body.seller;
   let file = req.file; // the image file
   let frontendPath = "/uploads/" + file.filename;
-  dbo.collection("posts").insertOne({
+  dbo.collection("products").insertOne({
     description: description,
     brand: brand,
     size: size,
@@ -95,10 +95,10 @@ app.post("/new-upload", upload.single("img"), (req, res) => {
 //All Images Endpoint
 
 //Details Image Endpoint
-app.post("/image-detailPage", upload.none(), (req, res) => {
+app.get("/image-detailPage", upload.none(), (req, res) => {
   console.log("request to /image-detailPage");
   dbo
-    .collection("posts")
+    .collection("products")
     .find({}) //frontend will choose which image to use from this array
     .toArray((err, ps) => {
       if (err) {
@@ -112,19 +112,19 @@ app.post("/image-detailPage", upload.none(), (req, res) => {
 });
 
 //Userpage Images Endpoint
-app.post("/image-userPage", upload.none(), (req, res) => {
+app.get("/image-userPage", upload.none(), (req, res) => {
   console.log("request to /image-userPage");
-  let name = req.body.username;
+  let name = req.query.username;
   dbo
-    .collection("posts")
-    .find({ seller: name, selling: true }) //sort by everything the seller is selling. later on we will sort his wishlist and purchases
+    .collection("products")
+    .find({ seller: name }) //sort by everything the seller is selling. later on we will sort his wishlist and purchases
     .toArray((err, ps) => {
       if (err) {
         console.log("error", err);
-        res.send("fail");
+        res.send(JSON.stringify({ success: false }));
         return;
       }
-      console.log("posts", ps);
+      console.log("products", ps);
       res.send(JSON.stringify(ps));
     });
 });

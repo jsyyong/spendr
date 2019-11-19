@@ -36,15 +36,10 @@ class unconnectedUserHomePage extends Component {
 
   reload = async () => {
     let name = this.state.username;
-    let data = new FormData();
-    data.append("username", name);
-    let response = await fetch("/image-userPage", {
-      method: "POST",
-      body: data
-    });
+    let response = await fetch("/image-userPage?username=" + name);
     let body = await response.text();
-    console.log("/image-userPage response", body);
     body = JSON.parse(body);
+    console.log("/image-userPage response", body);
     this.setState({ posts: body });
   };
   componentDidMount = () => {
@@ -59,45 +54,50 @@ class unconnectedUserHomePage extends Component {
     data.append("size", this.state.size);
     data.append("price", this.state.price);
     data.append("stock", this.state.stock);
-    data.append("username", this.props.username);
-    await fetch("/new-upload", { method: "POST", body: data });
+    data.append("seller", this.props.username);
+    await fetch("/createItem", { method: "POST", body: data });
     this.reload();
   };
   render = () => {
     return (
       <div>
         <form className="userInput" onSubmit={this.submitHandler}>
-          <input type="file" onChange={this.fileChangeHandler} />
+          <input type="file" onChange={this.fileChangeHandler} required />
           <input
             type="text"
             value={this.state.brand}
             onChange={this.brandChangeHandler}
+            required
           />
           <input
             type="text"
             value={this.state.description}
             onChange={this.descChangeHandler}
+            required
           />
           <input
             type="text"
             value={this.state.size}
             onChange={this.sizeChangeHandler}
+            required
           />
           <input
             type="text"
             value={this.state.price}
             onChange={this.priceChangeHandler}
+            required
           />
           <input
             type="text"
             value={this.state.stock}
             onChange={this.stockChangeHandler}
+            required
           />
           <input type="submit" value="upload" />
         </form>
         <div>
-          {this.state.posts.reverse().map(p => (
-            <div>{p} </div>
+          {this.state.posts.reverse().map(product => (
+            <div key={product._id}>{product.description}</div>
           ))}
         </div>
       </div>
