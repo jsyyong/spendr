@@ -1,5 +1,4 @@
 import React, { Component } from "react"; // 1
-import Content from "./Content.jsx"; // 1
 import { connect } from "react-redux";
 class unconnectedApp extends Component {
   // 1

@@ -1,9 +1,7 @@
 let express = require("express");
 let app = express();
 let reloadMagic = require("./reload-magic.js");
-let express = require("express"); //creates endpoints
 let multer = require("multer"); ///handles http requests from form submissions. It places data in the body property of the request object
-let app = express(); // we will be creating endpoints for the images we upload
 let upload = multer(); // we will be uploading images, signing up and logging in
 let MongoClient = require("mongodb").MongoClient; //used to initiate connection
 ObjectID = require("mongodb").ObjectID; //convert string to objectID
