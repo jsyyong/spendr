@@ -80,23 +80,21 @@ app.post("/new-upload", upload.single("img"), (req, res) => {
   let seller = req.body.seller;
   let file = req.file; // the image file
   let frontendPath = "/uploads/" + file.filename;
-  dbo
-    .collection("posts")
-    .insertOne({
-      description: description,
-      brand: brand,
-      size: size,
-      price: price,
-      stock: stock,
-      seller: seller,
-      frontendPath: frontendPath
-    });
+  dbo.collection("posts").insertOne({
+    description: description,
+    brand: brand,
+    size: size,
+    price: price,
+    stock: stock,
+    seller: seller,
+    frontendPath: frontendPath
+  });
   res.send(JSON.stringify({ success: true }));
 });
 
 //All Images Endpoint
 //Userpage Images Endpoint
-app.get("/image-userPage", (req, res) => {
+app.post("/image-userPage", upload.none(), (req, res) => {
   console.log("request to /image-userPage");
   let name = req.body.username;
   dbo
