@@ -36,15 +36,32 @@ class SignUp extends Component {
       this.setState({ username: name }); // 9
       this.props.dispatch({ type: "signin" });
       this.props.dispatch({ type: "set-username", name: name });
+      alert("Signup Success!");
+      this.setState({ usernameInput: "" });
+      this.setState({ passwordInput: "" });
+      return;
     }
+    alert("Signup Fail");
+    this.setState({ usernameInput: "" });
+    this.setState({ passwordInput: "" });
   };
   render = () => {
     return (
       <div>
         SignUp
         <form onSubmit={this.submitHandlerSignUp}>
-          Username <input type="text" onChange={this.usernameChange} />
-          Password <input type="text" onChange={this.passwordChange} />
+          Username{" "}
+          <input
+            type="text"
+            onChange={this.usernameChange}
+            value={this.state.usernameInput}
+          />
+          Password{" "}
+          <input
+            type="text"
+            onChange={this.passwordChange}
+            value={this.state.passwordInput}
+          />
           <input type="submit" value="login" />
         </form>
       </div>

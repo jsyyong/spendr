@@ -37,7 +37,10 @@ class Login extends Component {
       // 9
       this.setState({ username: name }); // 9
       this.props.dispatch({ type: "set-username", name: name });
+      alert("Login Success!");
+      return;
     } // 9
+    alert("Login Failed");
   };
   render = () => {
     return (
