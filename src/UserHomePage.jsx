@@ -37,10 +37,10 @@ class unconnectedUserHomePage extends Component {
 
   reload = async () => {
     let name = this.state.username;
-    let response = await fetch("/product?username=" + name);
+    let response = await fetch("/product?seller=" + name);
     let body = await response.text();
     body = JSON.parse(body);
-    console.log("/image-userPage response", body);
+    console.log("/product response", body);
     this.setState({ products: body });
   };
   componentDidMount = () => {
