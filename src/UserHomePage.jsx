@@ -10,12 +10,12 @@ class unconnectedUserHomePage extends Component {
       products: [],
       file: "",
       category: "Category",
-      brand: "Brand",
-      productName: "Product Name",
-      description: "Description",
-      size: "Size",
-      price: "Price",
-      stock: "Stock"
+      brand: "",
+      productName: "",
+      description: "",
+      size: "",
+      price: "",
+      stock: ""
     };
   }
   fileChangeHandler = e => {
@@ -46,7 +46,7 @@ class unconnectedUserHomePage extends Component {
     let body = await response.text();
     body = JSON.parse(body);
     console.log("/product response", body);
-    this.setState({ products: body });
+    this.setState({ products: body.reverse() });
   };
   componentDidMount = () => {
     this.reload();
@@ -64,7 +64,12 @@ class unconnectedUserHomePage extends Component {
     data.append("stock", this.state.stock);
     data.append("seller", this.props.username);
     await fetch("/createItem", { method: "POST", body: data });
-    this.reload();
+    this.setState({ brand: "" });
+    this.setState({ productName: "" });
+    this.setState({ description: "" });
+    this.setState({ size: "" });
+    this.setState({ price: "" });
+    this.setState({ stock: "" });
   };
   render = () => {
     let styleWidth = {
@@ -92,49 +97,55 @@ class unconnectedUserHomePage extends Component {
           <input
             className="userInput"
             type="text"
-            placeholder={this.state.brand}
+            value={this.state.brand}
+            placeholder="Brand"
             onChange={this.brandChangeHandler}
             required
           />
           <input
             className="userInput"
             type="text"
-            placeholder={this.state.productName}
+            value={this.state.productName}
+            placeholder="Product Name"
             onChange={this.productNameChangeHandler}
             required
           />
           <input
             className="userInput"
             type="text"
-            placeholder={this.state.description}
+            value={this.state.description}
+            placeholder="Description"
             onChange={this.descChangeHandler}
             required
           />
           <input
             className="userInput"
             type="text"
-            placeholder={this.state.size}
+            value={this.state.size}
+            placeholder="Size"
             onChange={this.sizeChangeHandler}
             required
           />
           <input
             className="userInput"
             type="text"
-            placeholder={this.state.price}
+            value={this.state.price}
+            placeholder="Price"
             onChange={this.priceChangeHandler}
             required
           />
           <input
             className="userInput"
             type="text"
-            placeholder={this.state.stock}
+            value={this.state.stock}
+            placeholder="Stock"
             onChange={this.stockChangeHandler}
             required
           />
           <input className="userInput" type="submit" value="Upload" />
         </form>
         <div>
-          {this.state.products.reverse().map(product => (
+          {this.state.products.map(product => (
             <Products key={product._id} product={product} />
           ))}
         </div>
