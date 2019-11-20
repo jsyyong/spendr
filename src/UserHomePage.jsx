@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import Products from "./Products.jsx";
 
 class unconnectedUserHomePage extends Component {
   constructor(props) {
@@ -56,7 +57,7 @@ class unconnectedUserHomePage extends Component {
     data.append("img", this.state.file);
     data.append("category", this.state.category);
     data.append("brand", this.state.brand);
-    data.append("product name"), this.state.productName;
+    data.append("product name", this.state.productName);
     data.append("description", this.state.description);
     data.append("size", this.state.size);
     data.append("price", this.state.price);
@@ -134,7 +135,7 @@ class unconnectedUserHomePage extends Component {
         </form>
         <div>
           {this.state.products.reverse().map(product => (
-            <Products product={product} />
+            <Products key={product._id} product={product} />
           ))}
         </div>
       </div>
