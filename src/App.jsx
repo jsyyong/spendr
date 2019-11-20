@@ -30,9 +30,12 @@ class unconnectedApp extends Component {
     if (this.props.username === "") {
       // 3
       return (
-        <div className="nav-bar">
-          <SignUp />
-          <Login />
+        <div>
+          <div className="nav-bar">
+            <SignUp />
+            <Login />
+          </div>
+          SEGDRHDJT
         </div>
       ); // 3
     } else {

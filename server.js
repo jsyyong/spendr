@@ -92,27 +92,29 @@ app.post("/createItem", upload.single("img"), (req, res) => {
   res.send(JSON.stringify({ success: true }));
 });
 
-//All Images Endpoint
+//Images Endpoint
 
-//Details Image Endpoint
-app.get("/image-detailPage", upload.none(), (req, res) => {
-  console.log("request to /image-detailPage");
+app.get("/product", upload.none(), (req, res) => {
+  console.log("request to /product");
+  // let name = req.query.username;
+  // console.log("query username:", name);
+  console.log("querystring", req.query);
   dbo
     .collection("products")
-    .find({}) //frontend will choose which image to use from this array
+    .find(req.query) //sort by everything the seller is selling. later on we will sort his wishlist and purchases
+    // .find({})
     .toArray((err, ps) => {
       if (err) {
         console.log("error", err);
-        res.send("fail");
+        res.send(JSON.stringify({ success: false }));
         return;
       }
-      console.log("detail posts", ps);
+      console.log("products", ps);
       res.send(JSON.stringify(ps));
     });
 });
 
-//Userpage Images Endpoint
-app.get("/image-userPage", upload.none(), (req, res) => {
+/*app.get("/image-userPage", upload.none(), (req, res) => {
   console.log("request to /image-userPage");
   let name = req.query.username;
   dbo
@@ -127,7 +129,7 @@ app.get("/image-userPage", upload.none(), (req, res) => {
       console.log("products", ps);
       res.send(JSON.stringify(ps));
     });
-});
+});*/
 // Your endpoints go before this line
 
 app.all("/*", (req, res, next) => {
