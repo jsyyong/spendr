@@ -41,14 +41,26 @@ class Login extends Component {
       return;
     } // 9
     alert("Login Failed");
+    this.setState({ usernameInput: "" });
+    this.setState({ passwordInput: "" });
   };
   render = () => {
     return (
       <div>
         Login
         <form onSubmit={this.submitHandlerLogin}>
-          Username <input type="text" onChange={this.usernameChange} />
-          Password <input type="text" onChange={this.passwordChange} />
+          Username{" "}
+          <input
+            type="text"
+            onChange={this.usernameChange}
+            value={this.state.usernameInput}
+          />
+          Password{" "}
+          <input
+            type="text"
+            onChange={this.passwordChange}
+            value={this.state.passwordInput}
+          />
           <input type="submit" value="login" />
         </form>
       </div>
