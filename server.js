@@ -87,7 +87,7 @@ app.post("/createItem", upload.single("img"), (req, res) => {
     price: price,
     stock: stock,
     seller: seller,
-    frontendPath: frontendPath
+    imgPath: frontendPath
   });
   res.send(JSON.stringify({ success: true }));
 });

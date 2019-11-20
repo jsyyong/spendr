@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import SignUp from "./SignUp.jsx";
 import Login from "./Login.jsx";
 import UserHomePage from "./UserHomePage.jsx";
+import HomePage from "./HomePage.jsx";
 class unconnectedApp extends Component {
   // 1
   constructor() {
@@ -35,6 +36,7 @@ class unconnectedApp extends Component {
             <SignUp />
             <Login />
           </div>
+          <HomePage />
           SEGDRHDJT
         </div>
       ); // 3
