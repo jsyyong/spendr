@@ -4,6 +4,7 @@ import SignUp from "./SignUp.jsx";
 import Login from "./Login.jsx";
 import UserHomePage from "./UserHomePage.jsx";
 import HomePage from "./HomePage.jsx";
+import { Route, BrowserRouter } from "react-router-dom";
 class unconnectedApp extends Component {
   // 1
   constructor() {
@@ -25,8 +26,29 @@ class unconnectedApp extends Component {
     this.setState({ passwordInput: evt.target.value }); // 5
   }; // 5
 
-  // 6
-  render = () => {
+  /*renderItem = async () => {
+    let productId = routerData.match.params.pid;
+    //console.log("product ID:", productId)
+    let products = await fetch("/product", { method: "POST" });
+    let body = await products.text();
+    body = JSON.parse(body);
+    console.log("/product response", body);
+    this.setState({ products: body });
+    let sortedProducts = this.state.products.map(product => {
+      return product.imgPath === productId;
+    }); //should only return one object
+    return <ProductDetail imgPath={productId} />;
+  };*/
+
+  renderProduct = routerData => {
+    let productId = routerData.match.params.pid;
+    let product = this.props.products.find(product => {
+      return product._id === productId;
+    });
+
+    return product.imgPath;
+  };
+  renderHomeScreen = () => {
     let flex = { display: "flex" };
     if (this.props.username === "") {
       return (
@@ -36,17 +58,33 @@ class unconnectedApp extends Component {
             <Login />
           </div>
           <HomePage />
+          <Route exact={true} path="/detail/:pid" render={this.renderItem} />
           SEGDRHDJT
         </div>
-      ); // 3
+      );
     } else {
       return <UserHomePage username={this.props.username} />;
     }
   };
+
+  // 6
+  render = () => {
+    return (
+      <BrowserRouter>
+        <Route exact={true} path="/" render={this.renderHomeScreen} />
+        <Route
+          exact={true}
+          path="/detail/:pid"
+          render={this.renderProduct}
+        ></Route>
+      </BrowserRouter>
+    ); // 3
+  };
 }
 let mapStateToProps = st => {
   return {
-    username: st.username
+    username: st.username,
+    products: st.products
   };
 };
 let App = connect(mapStateToProps)(unconnectedApp);
