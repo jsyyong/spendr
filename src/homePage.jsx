@@ -1,19 +1,16 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import DeleteForm from "./DeleteForm.jsx";
+import { Link } from "react-router-dom";
 
 class unconnectedHomePage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { products: [] };
-  }
   reload = async () => {
     //let name = this.state.username;
     let response = await fetch("/product", { method: "GET" });
     let body = await response.text();
     body = JSON.parse(body);
-    // console.log("/product response", body);
-    this.setState({ products: body });
+    console.log("/product response", body);
+    this.props.dispatch({ type: "set-products", products: body });
   };
   componentDidMount = () => {
     this.reload();
@@ -24,9 +21,11 @@ class unconnectedHomePage extends Component {
     };
     return (
       <div>
-        {this.state.products.reverse().map(product => (
+        {this.props.products.reverse().map(product => (
           <div key={product._id}>
-            <img style={styleWidth} src={product.imgPath} />
+            <Link to={"/detail/" + product._id}>
+              <img style={styleWidth} src={product.imgPath} />
+            </Link>
           </div>
         ))}
         <DeleteForm reload={this.reload} />
@@ -34,8 +33,8 @@ class unconnectedHomePage extends Component {
     );
   };
 }
-let mapStateToProps = st => {
-  return {};
+let mapStateToProps = state => {
+  return { products: state.products };
 };
 let HomePage = connect(mapStateToProps)(unconnectedHomePage);
 export default HomePage;
