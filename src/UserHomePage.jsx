@@ -8,8 +8,9 @@ class unconnectedUserHomePage extends Component {
       username: this.props.username,
       products: [],
       file: "",
-      category: "category",
+      category: "Category",
       brand: "Brand",
+      productName: "Product Name",
       description: "Description",
       size: "Size",
       price: "Price",
@@ -18,6 +19,9 @@ class unconnectedUserHomePage extends Component {
   }
   fileChangeHandler = e => {
     this.setState({ file: e.target.files[0] });
+  };
+  productNameChangeHandler = e => {
+    this.setState({ productName: e.target.value });
   };
   brandChangeHandler = e => {
     this.setState({ brand: e.target.value });
@@ -52,6 +56,7 @@ class unconnectedUserHomePage extends Component {
     data.append("img", this.state.file);
     data.append("category", this.state.category);
     data.append("brand", this.state.brand);
+    data.append("product name"), this.state.productName;
     data.append("description", this.state.description);
     data.append("size", this.state.size);
     data.append("price", this.state.price);
@@ -93,6 +98,13 @@ class unconnectedUserHomePage extends Component {
           <input
             className="userInput"
             type="text"
+            placeholder={this.state.productName}
+            onChange={this.productNameChangeHandler}
+            required
+          />
+          <input
+            className="userInput"
+            type="text"
             placeholder={this.state.description}
             onChange={this.descChangeHandler}
             required
@@ -122,7 +134,7 @@ class unconnectedUserHomePage extends Component {
         </form>
         <div>
           {this.state.products.reverse().map(product => (
-            <div key={product._id}>{product.description}</div>
+            <Products product={product} />
           ))}
         </div>
       </div>
