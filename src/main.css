@@ -24,4 +24,33 @@ body {
 
 .userInput {
   display: block;
+  border-radius: 50px;
+  background-color: black;
+  color: white;
+  font-family: Helvetica, sans-serif;
+  border: none;
+  margin: 10px;
+  font-size: 40px;
+  padding: 10px 10px 10px 20px;
+  width: 330px;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+.inputImage {
+  display: block;
+  border-radius: 50px;
+  background-color: black;
+  color: white;
+  font-family: Helvetica, sans-serif;
+  border: none;
+  margin: 10px;
+  font-size: 40px;
+  padding: 10px 10px 10px 20px;
+  width: 330px;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+input[type="file"] {
+  display: none;
 }

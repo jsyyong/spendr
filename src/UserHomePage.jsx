@@ -8,11 +8,11 @@ class unconnectedUserHomePage extends Component {
       username: this.props.username,
       posts: [],
       file: "",
-      brand: "brand",
-      description: "description",
-      size: "size",
-      price: "price",
-      stock: "stock"
+      brand: "Brand",
+      description: "Description",
+      size: "Size",
+      price: "Price",
+      stock: "Stock"
     };
   }
   fileChangeHandler = e => {
@@ -61,39 +61,47 @@ class unconnectedUserHomePage extends Component {
   render = () => {
     return (
       <div>
-        <form className="userInput" onSubmit={this.submitHandler}>
-          <input type="file" onChange={this.fileChangeHandler} required />
+        <form onSubmit={this.submitHandler}>
+          <label className="inputImage">
+            <input type="file" onChange={this.fileChangeHandler} required />
+            Image
+          </label>
           <input
+            className="userInput"
             type="text"
             value={this.state.brand}
             onChange={this.brandChangeHandler}
             required
           />
           <input
+            className="userInput"
             type="text"
             value={this.state.description}
             onChange={this.descChangeHandler}
             required
           />
           <input
+            className="userInput"
             type="text"
             value={this.state.size}
             onChange={this.sizeChangeHandler}
             required
           />
           <input
+            className="userInput"
             type="text"
             value={this.state.price}
             onChange={this.priceChangeHandler}
             required
           />
           <input
+            className="userInput"
             type="text"
             value={this.state.stock}
             onChange={this.stockChangeHandler}
             required
           />
-          <input type="submit" value="upload" />
+          <input className="userInput" type="submit" value="Upload" />
         </form>
         <div>
           {this.state.posts.reverse().map(product => (
