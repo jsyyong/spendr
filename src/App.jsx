@@ -27,12 +27,11 @@ class unconnectedApp extends Component {
 
   // 6
   render = () => {
-    // 3
+    let flex = { display: "flex" };
     if (this.props.username === "") {
-      // 3
       return (
         <div>
-          <div className="nav-bar">
+          <div className="nav-bar" style={flex}>
             <SignUp />
             <Login />
           </div>

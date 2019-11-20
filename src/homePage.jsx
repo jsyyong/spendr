@@ -18,11 +18,14 @@ class unconnectedHomePage extends Component {
     this.reload();
   };
   render = () => {
+    let styleWidth = {
+      width: "200px"
+    };
     return (
       <div>
         {this.state.products.reverse().map(product => (
           <div key={product._id}>
-            <img src={product.imgPath} />
+            <img style={styleWidth} src={product.imgPath} />
           </div>
         ))}
       </div>
