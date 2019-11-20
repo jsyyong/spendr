@@ -18,26 +18,15 @@ class unconnectedUserHomePage extends Component {
       stock: ""
     };
   }
+
   fileChangeHandler = e => {
     this.setState({ file: e.target.files[0] });
   };
-  productNameChangeHandler = e => {
-    this.setState({ productName: e.target.value });
-  };
-  brandChangeHandler = e => {
-    this.setState({ brand: e.target.value });
-  };
-  descChangeHandler = e => {
-    this.setState({ description: e.target.value });
-  };
-  sizeChangeHandler = e => {
-    this.setState({ size: e.target.value });
-  };
-  priceChangeHandler = e => {
-    this.setState({ price: e.target.value });
-  };
-  stockChangeHandler = e => {
-    this.setState({ stock: e.target.value });
+
+  onChangeHandler = field => {
+    return event => {
+      this.setState({ [field]: event.target.value });
+    };
   };
 
   reload = async () => {
@@ -45,7 +34,7 @@ class unconnectedUserHomePage extends Component {
     let response = await fetch("/product?seller=" + name);
     let body = await response.text();
     body = JSON.parse(body);
-    console.log("/product response", body);
+    // console.log("/product response", body);
     this.setState({ products: body.reverse() });
   };
   componentDidMount = () => {
@@ -70,6 +59,7 @@ class unconnectedUserHomePage extends Component {
     this.setState({ size: "" });
     this.setState({ price: "" });
     this.setState({ stock: "" });
+    this.reload();
   };
   render = () => {
     let styleWidth = {
@@ -99,7 +89,7 @@ class unconnectedUserHomePage extends Component {
             type="text"
             value={this.state.brand}
             placeholder="Brand"
-            onChange={this.brandChangeHandler}
+            onChange={this.onChangeHandler("brand")}
             required
           />
           <input
@@ -107,7 +97,7 @@ class unconnectedUserHomePage extends Component {
             type="text"
             value={this.state.productName}
             placeholder="Product Name"
-            onChange={this.productNameChangeHandler}
+            onChange={this.onChangeHandler("productName")}
             required
           />
           <input
@@ -115,7 +105,7 @@ class unconnectedUserHomePage extends Component {
             type="text"
             value={this.state.description}
             placeholder="Description"
-            onChange={this.descChangeHandler}
+            onChange={this.onChangeHandler("description")}
             required
           />
           <input
@@ -123,7 +113,7 @@ class unconnectedUserHomePage extends Component {
             type="text"
             value={this.state.size}
             placeholder="Size"
-            onChange={this.sizeChangeHandler}
+            onChange={this.onChangeHandler("size")}
             required
           />
           <input
@@ -131,7 +121,7 @@ class unconnectedUserHomePage extends Component {
             type="text"
             value={this.state.price}
             placeholder="Price"
-            onChange={this.priceChangeHandler}
+            onChange={this.onChangeHandler("price")}
             required
           />
           <input
@@ -139,7 +129,7 @@ class unconnectedUserHomePage extends Component {
             type="text"
             value={this.state.stock}
             placeholder="Stock"
-            onChange={this.stockChangeHandler}
+            onChange={this.onChangeHandler("stock")}
             required
           />
           <input className="userInput" type="submit" value="Upload" />

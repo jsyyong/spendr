@@ -20,7 +20,11 @@ MongoClient.connect(
   }
 );
 // Your endpoints go after this line
-
+app.post("/deleteAll", upload.none(), (req, res) => {
+  console.log("inside /deleteAll");
+  dbo.collection("products").deleteMany({});
+  res.json({ success: true });
+});
 //Login Endpoint
 app.post("/login", upload.none(), (req, res) => {
   console.log("login", req.body);
