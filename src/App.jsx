@@ -5,6 +5,9 @@ import Login from "./Login.jsx";
 import UserHomePage from "./UserHomePage.jsx";
 import HomePage from "./HomePage.jsx";
 import { Route, BrowserRouter } from "react-router-dom";
+import Search from "./Search.jsx";
+import SearchResult from "./Searchresult.jsx";
+
 class unconnectedApp extends Component {
   // 1
   constructor() {
@@ -54,12 +57,13 @@ class unconnectedApp extends Component {
       return (
         <div>
           <div className="nav-bar" style={flex}>
+            <Search />
             <SignUp />
             <Login />
           </div>
           <HomePage />
           <Route exact={true} path="/detail/:pid" render={this.renderItem} />
-          SEGDRHDJT
+          <SearchResult />
         </div>
       );
     } else {

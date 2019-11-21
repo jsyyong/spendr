@@ -21,6 +21,7 @@ class unconnectedHomePage extends Component {
     };
     return (
       <div>
+
         {this.props.products.reverse().map(product => (
           <div key={product._id}>
             <Link to={"/detail/" + product._id}>
