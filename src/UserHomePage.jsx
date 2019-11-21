@@ -137,7 +137,7 @@ class unconnectedUserHomePage extends Component {
         </form>
         <div>
           {this.state.products.map(product => (
-            <Products key={product._id} product={product} />
+            <Products key={"q" + product._id} product={product} />
           ))}
         </div>
       </div>

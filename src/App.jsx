@@ -66,7 +66,7 @@ class unconnectedApp extends Component {
     //return product.imgPath;
     return (
       <div>
-        <ProductDetails productId={productId} product={product} />;
+        <ProductDetails productId={productId} product={product} />
       </div>
     ); //change to be made
   };

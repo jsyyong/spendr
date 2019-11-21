@@ -101,7 +101,7 @@ app.get("/searchResults", (req, res) => {
   console.log("queryString", req.query);
   dbo
     .collection("products")
-    .find(req.query)
+    .find({ description: { $regex: req.query.description } })
     .toArray((err, ps) => {
       if (err) {
         console.log("error", err);

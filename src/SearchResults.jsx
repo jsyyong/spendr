@@ -22,8 +22,8 @@ class UnconnectedSearchResults extends Component {
     return this.props.searchResults.map(result => {
       return (
         <>
-          <img height="200px" key={result._id} src={result.imgPath} />
-          <div key={result._id}>{result.price}</div>
+          <img height="200px" key={"i" + result._id} src={result.imgPath} />
+          <div key={"d" + result._id}>{result.price}</div>
         </>
       );
     });

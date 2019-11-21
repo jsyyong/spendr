@@ -22,7 +22,7 @@ class unconnectedHomePage extends Component {
     return (
       <div>
         {this.props.products.reverse().map(product => (
-          <div key={product._id}>
+          <div key={"f" + product._id}>
             <Link to={"/detail/" + product._id}>
               <img style={styleWidth} src={product.imgPath} />
             </Link>
