@@ -35,7 +35,7 @@ class UnconnectedSearch extends Component {
 }
 
 let mapStateToProps = st => {
-  return {
+   return {
     query: st.searchQuery
   };
 };

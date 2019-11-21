@@ -7,24 +7,24 @@ class UnconnectedSearchResults extends Component {
     );
     let body = await response.json();
     console.log("handle results body", body);
-    if (body.length !== this.props.searchResults.length) {
-      this.props.dispatch({ type: "set-searchResults", searchResults: body });
-    }
+    this.props.dispatch({ type: "set-searchResults", searchResults: body });
   };
   componentDidMount = () => {
     this.handleResults();
   };
-  componentDidUpdate = () => {
-    this.handleResults();
+  componentDidUpdate = prevProps => {
+    if (this.props.query !== prevProps.query) {
+      this.handleResults();
+    }
   };
   render = () => {
     console.log("inside render searchResults", this.props.searchResults);
     return this.props.searchResults.map(result => {
       return (
-        <>
+        <div key={result._id}>
           <img height="200px" key={"i" + result._id} src={result.imgPath} />
           <div key={"d" + result._id}>{result.price}</div>
-        </>
+        </div>
       );
     });
   };
