@@ -3,6 +3,10 @@ let app = express();
 let reloadMagic = require("./reload-magic.js");
 let multer = require("multer"); ///handles http requests from form submissions. It places data in the body property of the request object
 let upload = multer({ dest: __dirname + "/uploads/" }); // we will be uploading images, signing up and logging in
+let cookieParser = require("cookie-parser");
+app.use(cookieParser());
+let passwords = {};
+let sessions = {};
 let MongoClient = require("mongodb").MongoClient; //used to initiate connection
 ObjectID = require("mongodb").ObjectID; //convert string to objectID
 reloadMagic(app);
@@ -19,6 +23,12 @@ MongoClient.connect(
     dbo = db.db("media-board");
   }
 );
+
+//Sessions Id Generator
+let generateId = () => {
+  return "" + Math.floor(Math.random() * 100000000);
+};
+
 // Your endpoints go after this line
 app.post("/deleteAll", upload.none(), (req, res) => {
   console.log("inside /deleteAll");
@@ -29,7 +39,7 @@ app.post("/deleteAll", upload.none(), (req, res) => {
 app.post("/login", upload.none(), (req, res) => {
   console.log("login", req.body);
   let name = req.body.username;
-  let pwd = req.body.password;
+  let enteredPassword = req.body.password;
   dbo.collection("users").findOne({ username: name }, (err, user) => {
     if (err) {
       console.log("/login error", err);
@@ -41,9 +51,27 @@ app.post("/login", upload.none(), (req, res) => {
       res.send(JSON.stringify({ success: false }));
       return;
     }
-    if (user.password === pwd) {
+    if (user.password === enteredPassword) {
       console.log("user pwd = pwd");
-      res.send(JSON.stringify({ success: true }));
+      let sessionId = req.cookies.sessionId;
+      dbo
+        .collection("user")
+        .findOne({ sessionId: sessionId }, (err, session) => {
+          if (session === null) {
+            let sessionId = generateId();
+            console.log("session", sessionId);
+            dbo
+              .collection("sessions")
+              .insertOne(
+                { username: name, sessionId: sessionId },
+                (error, insertedSession) => {
+                  res.cookie("sessionId", sessionId);
+                  res.send(JSON.stringify({ success: true }));
+                }
+              );
+          }
+        });
+      //then we associate username with session id
       return;
     }
     console.log("else, fail");
@@ -56,6 +84,7 @@ app.post("/signup", upload.none(), (req, res) => {
   console.log("signup", req.body); //body is the data from signup from post component
   let name = req.body.username;
   let pwd = req.body.password;
+
   dbo.collection("users").findOne({ username: name }, (err, user) => {
     if (err) {
       console.log("/login error", err);
@@ -64,7 +93,25 @@ app.post("/signup", upload.none(), (req, res) => {
     }
     if (user === null) {
       console.log(name + " is available!");
-      dbo.collection("users").insertOne({ username: name, password: pwd });
+      //console.log("generate session id: ", sessionId);
+
+      dbo
+        .collection("users")
+        .insertOne({ username: name, password: pwd }, (error, insertedUser) => {
+          let sessionId = generateId();
+          console.log("generated id", sessionId);
+
+          dbo
+            .collection("sessions")
+            .insertOne(
+              { username: name, sessionId: sessionId },
+              (error, insertedSession) => {
+                res.cookie("sessionId", sessionId);
+                res.send(JSON.stringify({ success: true }));
+                return;
+              }
+            );
+        });
       res.send(JSON.stringify({ success: true }));
       return;
     }

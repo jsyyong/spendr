@@ -68,13 +68,8 @@ class unconnectedApp extends Component {
             <Login />
           </div>
           <HomePage />
-<<<<<<< HEAD
           <Route exact={true} path="/detail/:pid" render={this.renderProduct} />
           SEGDRHDJT
-=======
-          <Route exact={true} path="/detail/:pid" render={this.renderItem} />
-          <SearchResults />
->>>>>>> 1133793ee917438a7a6a64f1007ea63dd134b71b
         </div>
       );
     } else {
