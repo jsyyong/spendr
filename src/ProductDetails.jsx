@@ -6,7 +6,6 @@ class unconnectedProductDetails extends Component {
     return (
       <div>
         <img height="25%" width="25%" src={this.props.product.imgPath} />
-
         <h2>{this.props.product.brand}</h2>
         <p>{this.props.product.description}</p>
       </div>
