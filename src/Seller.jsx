@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import ProductDetails from "./ProductDetails.jsx";
 import { Route, BrowserRouter } from "react-router-dom";
 class unconnectedSeller extends Component {
   constructor() {
@@ -12,7 +13,7 @@ class unconnectedSeller extends Component {
   }
 
   reload = async () => {
-    //let name = this.state.username;
+    let seller = this.state.seller;
     let response = await fetch("/product?seller=" + seller);
     let body = await response.text();
     body = JSON.parse(body);

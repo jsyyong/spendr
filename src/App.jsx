@@ -48,7 +48,11 @@ class unconnectedApp extends Component {
     });
 
     //return product.imgPath;
-    <ProductDetails productID={productId} products={product} />; //change to be made
+    return (
+      <div>
+        <ProductDetails productId={productId} product={product} />;
+      </div>
+    ); //change to be made
   };
   renderHomeScreen = () => {
     let flex = { display: "flex" };
