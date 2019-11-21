@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 class unconnectedHomePage extends Component {
   reload = async () => {
     //let name = this.state.username;
-    let response = await fetch("/product");
+    let response = await fetch("/product", { method: "POST" });
     let body = await response.text();
     body = JSON.parse(body);
     console.log("/product response", body);
