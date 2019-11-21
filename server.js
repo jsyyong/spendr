@@ -96,8 +96,23 @@ app.post("/createItem", upload.single("img"), (req, res) => {
   res.send(JSON.stringify({ success: true }));
 });
 
+app.get("/searchResults", (req, res) => {
+  console.log("request to /searchResults");
+  console.log("queryString", req.query);
+  dbo
+    .collection("products")
+    .find(req.query)
+    .toArray((err, ps) => {
+      if (err) {
+        console.log("error", err);
+        res.send("fail");
+        return;
+      }
+      console.log("product", ps);
+      res.json(ps);
+    });
+});
 //Images Endpoint
-
 app.get("/product", upload.none(), (req, res) => {
   console.log("request to /product");
   // let name = req.query.username;

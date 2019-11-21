@@ -6,6 +6,9 @@ import UserHomePage from "./UserHomePage.jsx";
 import HomePage from "./HomePage.jsx";
 import ProductDetails from "./ProductDetails.jsx";
 import { Route, BrowserRouter } from "react-router-dom";
+import Search from "./Search.jsx";
+import SearchResults from "./SearchResults.jsx";
+
 class unconnectedApp extends Component {
   // 1
   constructor() {
@@ -60,12 +63,18 @@ class unconnectedApp extends Component {
       return (
         <div>
           <div className="nav-bar" style={flex}>
+            <Search />
             <SignUp />
             <Login />
           </div>
           <HomePage />
+<<<<<<< HEAD
           <Route exact={true} path="/detail/:pid" render={this.renderProduct} />
           SEGDRHDJT
+=======
+          <Route exact={true} path="/detail/:pid" render={this.renderItem} />
+          <SearchResults />
+>>>>>>> 1133793ee917438a7a6a64f1007ea63dd134b71b
         </div>
       );
     } else {

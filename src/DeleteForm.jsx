@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 class unconnectedDeleteForm extends Component {
-  deleteAllHandler = async e => {
-    e.preventDefault();
-    let response = await fetch("/deleteAll", { method: "POST" });
+  deleteAllHandler = async event => {
+    event.preventDefault();
+    let response = await fetch("/deleteAll");
     let body = await response.json();
     console.log("deleteAllHandler body", body);
     this.props.reload();
