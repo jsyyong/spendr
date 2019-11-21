@@ -67,7 +67,6 @@ class unconnectedApp extends Component {
             <Login />
           </div>
           <HomePage />
-          <Route exact={true} path="/detail/:pid" render={this.renderItem} />
           <SearchResults />
         </div>
       );

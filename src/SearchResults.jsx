@@ -16,8 +16,8 @@ class UnconnectedSearchResults extends Component {
   };
   render = () => {
     console.log("inside render searchResults", this.props.searchResults);
-    return this.props.searchResults.map(result => {
-      return <div>{result.description}</div>;
+    return this.props.searchResults.map((result, i) => {
+      return <div key={i}>{result.description}</div>;
     });
   };
 }

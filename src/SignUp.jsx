@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import UserHomePage from "./UserHomePage.jsx";
 
 class SignUp extends Component {
   constructor() {

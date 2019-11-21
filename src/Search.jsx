@@ -1,8 +1,18 @@
 import { connect } from "react-redux";
 import React, { Component } from "react";
 class UnconnectedSearch extends Component {
-  handleQuery = evt => {
-    this.props.dispatch({ type: "query", q: evt.target.value });
+  constructor(props) {
+    super(props);
+    this.state = {
+      searchInput: this.props.query
+    };
+  }
+  submitHandler = evt => {
+    evt.preventDefault();
+    this.props.dispatch({ type: "query", q: this.state.searchInput });
+  };
+  onChangeHandler = evt => {
+    this.setState({ searchInput: evt.target.value });
   };
 
   render = () => {
@@ -11,10 +21,11 @@ class UnconnectedSearch extends Component {
         Search
         <input
           type="text"
-          onChange={this.handleQuery}
           placeholder="Search"
-          value={this.props.query}
+          onChange={this.onChangeHandler}
+          value={this.state.searchInput}
         />
+        <button onClick={this.submitHandler}>Go</button>
       </div>
     );
   };
