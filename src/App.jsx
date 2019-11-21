@@ -43,7 +43,20 @@ class unconnectedApp extends Component {
     }); //should only return one object
     return <ProductDetail imgPath={productId} />;
   };*/
-
+  renderSearchResults = () => {
+    let flex = { display: "flex" };
+    console.log("inside render search results");
+    return (
+      <div>
+        <div className="nav-bar" style={flex}>
+          <Search />
+          <SignUp />
+          <Login />
+        </div>
+        <SearchResults />
+      </div>
+    );
+  };
   renderProduct = routerData => {
     let productId = routerData.match.params.pid;
     let product = this.props.products.find(product => {
@@ -80,11 +93,12 @@ class unconnectedApp extends Component {
     return (
       <BrowserRouter>
         <Route exact={true} path="/" render={this.renderHomeScreen} />
+        <Route exact={true} path="/detail/:pid" render={this.renderProduct} />
         <Route
           exact={true}
-          path="/detail/:pid"
-          render={this.renderProduct}
-        ></Route>
+          path="/searchResults"
+          render={this.renderSearchResults}
+        />
       </BrowserRouter>
     ); // 3
   };

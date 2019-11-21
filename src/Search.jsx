@@ -1,5 +1,7 @@
 import { connect } from "react-redux";
 import React, { Component } from "react";
+import { Link, withRouter } from "react-router-dom";
+
 class UnconnectedSearch extends Component {
   constructor(props) {
     super(props);
@@ -10,6 +12,7 @@ class UnconnectedSearch extends Component {
   submitHandler = evt => {
     evt.preventDefault();
     this.props.dispatch({ type: "query", q: this.state.searchInput });
+    this.props.history.push("/searchResults");
   };
   onChangeHandler = evt => {
     this.setState({ searchInput: evt.target.value });
@@ -36,5 +39,5 @@ let mapStateToProps = st => {
     query: st.searchQuery
   };
 };
-let Search = connect(mapStateToProps)(UnconnectedSearch);
+let Search = connect(mapStateToProps)(withRouter(UnconnectedSearch));
 export default Search;

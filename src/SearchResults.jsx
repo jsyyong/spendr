@@ -11,13 +11,16 @@ class UnconnectedSearchResults extends Component {
       this.props.dispatch({ type: "set-searchResults", searchResults: body });
     }
   };
+  componentDidMount = () => {
+    this.handleResults();
+  };
   componentDidUpdate = () => {
     this.handleResults();
   };
   render = () => {
     console.log("inside render searchResults", this.props.searchResults);
-    return this.props.searchResults.map((result, i) => {
-      return <div key={i}>{result.description}</div>;
+    return this.props.searchResults.map(result => {
+      return <div key={result._id}>{result.description}</div>;
     });
   };
 }
