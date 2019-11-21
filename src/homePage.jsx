@@ -17,7 +17,7 @@ class unconnectedHomePage extends Component {
   };
   render = () => {
     let styleWidth = {
-      width: "200px"
+      width: "300px"
     };
     return (
       <div>
