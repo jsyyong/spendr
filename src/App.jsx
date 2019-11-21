@@ -4,6 +4,7 @@ import SignUp from "./SignUp.jsx";
 import Login from "./Login.jsx";
 import UserHomePage from "./UserHomePage.jsx";
 import HomePage from "./HomePage.jsx";
+import ProductDetails from "./ProductDetails.jsx";
 import { Route, BrowserRouter } from "react-router-dom";
 class unconnectedApp extends Component {
   // 1
@@ -46,7 +47,8 @@ class unconnectedApp extends Component {
       return product._id === productId;
     });
 
-    return product.imgPath;
+    //return product.imgPath;
+    <ProductDetails productID={productId} products={product} />; //change to be made
   };
   renderHomeScreen = () => {
     let flex = { display: "flex" };
@@ -58,7 +60,7 @@ class unconnectedApp extends Component {
             <Login />
           </div>
           <HomePage />
-          <Route exact={true} path="/detail/:pid" render={this.renderItem} />
+          <Route exact={true} path="/detail/:pid" render={this.renderProduct} />
           SEGDRHDJT
         </div>
       );
@@ -72,11 +74,7 @@ class unconnectedApp extends Component {
     return (
       <BrowserRouter>
         <Route exact={true} path="/" render={this.renderHomeScreen} />
-        <Route
-          exact={true}
-          path="/detail/:pid"
-          render={this.renderProduct}
-        ></Route>
+        <Route exact={true} path="/detail/:pid" render={this.renderProduct} />
       </BrowserRouter>
     ); // 3
   };
