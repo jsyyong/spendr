@@ -32,7 +32,7 @@ class unconnectedSeller extends Component {
       <div>
         <h2>{this.state.seller}</h2>
         {this.state.product.reverse().map(product => (
-          <div key={product._id}>
+          <div key={"s" + product._id}>
             <Link to={"/detail/" + product._id}>
               <img style={styleWidth} src={product.imgPath} />
             </Link>

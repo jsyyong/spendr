@@ -148,7 +148,7 @@ app.get("/searchResults", (req, res) => {
   console.log("queryString", req.query);
   dbo
     .collection("products")
-    .find(req.query)
+    .find({ description: { $regex: req.query.description } })
     .toArray((err, ps) => {
       if (err) {
         console.log("error", err);
@@ -160,7 +160,7 @@ app.get("/searchResults", (req, res) => {
     });
 });
 //Images Endpoint
-app.get("/product", upload.none(), (req, res) => {
+app.post("/product", upload.none(), (req, res) => {
   console.log("request to /product");
   // let name = req.query.username;
   // console.log("query username:", name);
@@ -175,7 +175,7 @@ app.get("/product", upload.none(), (req, res) => {
         res.send(JSON.stringify({ success: false }));
         return;
       }
-      console.log("products", ps);
+      //   console.log("products", ps);
       res.send(JSON.stringify(ps));
     });
 });

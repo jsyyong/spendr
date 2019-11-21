@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 class unconnectedHomePage extends Component {
   reload = async () => {
     //let name = this.state.username;
-    let response = await fetch("/product");
+    let response = await fetch("/product", { method: "POST" });
     let body = await response.text();
     body = JSON.parse(body);
     console.log("/product response", body);
@@ -22,13 +22,12 @@ class unconnectedHomePage extends Component {
     return (
       <div>
         {this.props.products.reverse().map(product => (
-          <div key={product._id}>
+          <div key={"f" + product._id}>
             <Link to={"/detail/" + product._id}>
               <img style={styleWidth} src={product.imgPath} />
             </Link>
           </div>
-        ))}{" "}
-        }
+        ))}
         <DeleteForm reload={this.reload} />
       </div>
     );

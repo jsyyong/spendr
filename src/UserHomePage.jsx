@@ -31,10 +31,10 @@ class unconnectedUserHomePage extends Component {
 
   reload = async () => {
     let name = this.state.username;
-    let response = await fetch("/product?seller=" + name);
+    let response = await fetch("/product?seller=" + name, { method: "POST" });
     let body = await response.text();
     body = JSON.parse(body);
-    // console.log("/product response", body);
+    console.log("/product response", body);
     this.setState({ products: body.reverse() });
   };
   componentDidMount = () => {
@@ -137,7 +137,7 @@ class unconnectedUserHomePage extends Component {
         </form>
         <div>
           {this.state.products.map(product => (
-            <Products key={product._id} product={product} />
+            <Products key={"q" + product._id} product={product} />
           ))}
         </div>
       </div>
