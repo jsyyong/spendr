@@ -4,6 +4,7 @@ import SignUp from "./SignUp.jsx";
 import Login from "./Login.jsx";
 import UserHomePage from "./UserHomePage.jsx";
 import HomePage from "./HomePage.jsx";
+import ProductDetails from "./ProductDetails.jsx";
 import { Route, BrowserRouter } from "react-router-dom";
 class unconnectedApp extends Component {
   // 1
@@ -46,7 +47,11 @@ class unconnectedApp extends Component {
       return product._id === productId;
     });
 
-    return product.imgPath;
+    return (
+      <div>
+        <ProductDetails productId={productId} product={product} />
+      </div>
+    );
   };
   renderHomeScreen = () => {
     let flex = { display: "flex" };
