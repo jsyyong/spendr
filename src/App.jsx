@@ -6,7 +6,7 @@ import UserHomePage from "./UserHomePage.jsx";
 import HomePage from "./HomePage.jsx";
 import { Route, BrowserRouter } from "react-router-dom";
 import Search from "./Search.jsx";
-import SearchResult from "./Searchresult.jsx";
+import SearchResults from "./SearchResults.jsx";
 
 class unconnectedApp extends Component {
   // 1
@@ -63,7 +63,7 @@ class unconnectedApp extends Component {
           </div>
           <HomePage />
           <Route exact={true} path="/detail/:pid" render={this.renderItem} />
-          <SearchResult />
+          <SearchResults />
         </div>
       );
     } else {

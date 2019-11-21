@@ -12,6 +12,7 @@ class UnconnectedSearch extends Component {
         <input
           type="text"
           onChange={this.handleQuery}
+          placeholder="Search"
           value={this.props.query}
         />
       </div>
