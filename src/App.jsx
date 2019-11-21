@@ -63,11 +63,12 @@ class unconnectedApp extends Component {
       return product._id === productId;
     });
 
+    //return product.imgPath;
     return (
       <div>
-        <ProductDetails productId={productId} product={product} />
+        <ProductDetails productId={productId} product={product} />;
       </div>
-    );
+    ); //change to be made
   };
   renderHomeScreen = () => {
     let flex = { display: "flex" };
@@ -80,6 +81,8 @@ class unconnectedApp extends Component {
             <Login />
           </div>
           <HomePage />
+          <Route exact={true} path="/detail/:pid" render={this.renderProduct} />
+          <Route exact={true} path="/detail/:pid" render={this.renderItem} />
           <SearchResults />
         </div>
       );

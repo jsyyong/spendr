@@ -67,6 +67,7 @@ class unconnectedUserHomePage extends Component {
     };
     return (
       <div>
+        username: {this.props.username}
         <form onSubmit={this.submitHandler}>
           <label className="inputImage">
             <input type="file" onChange={this.fileChangeHandler} required />
@@ -144,7 +145,7 @@ class unconnectedUserHomePage extends Component {
   };
 }
 let mapStateToProps = st => {
-  return {};
+  return { username: st.username };
 };
 let UserHomePage = connect(mapStateToProps)(unconnectedUserHomePage);
 export default UserHomePage;
