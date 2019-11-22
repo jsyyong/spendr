@@ -137,6 +137,6 @@ input[type="file"] {
 
 .hp-products {
   display: flex;
-  width: 200px;
-  border: 1px red solid;
+  flex-wrap: wrap;
+  width: auto;
 }
