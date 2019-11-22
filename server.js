@@ -30,13 +30,34 @@ let generateId = () => {
 };
 
 // Your endpoints go after this line
+//deleteAll Endpoint
 app.post("/deleteAll", upload.none(), (req, res) => {
   console.log("inside /deleteAll");
   dbo.collection("products").deleteMany({});
   res.json({ success: true });
 });
 
-// Your endpoints go after this line
+//check-login endpoint
+app.post("/check-login", upload.none(), (req, res) => {
+  let sessionId = req.cookies.sessionId;
+  console.log("session id", sessionId);
+  let username = dbo
+    .collection("session")
+    .find({ session: sessionId }, (err, user) => {
+      if (err) {
+        console.log("/check-login failed");
+        return;
+      }
+      return user.username;
+    });
+  console.log("username", username);
+  if (username !== undefined) {
+    res.send(JSON.stringify({ success: true }));
+    return;
+  }
+  res.send(JSON.stringify({ success: false }));
+});
+
 app.post("/deleteSingle", upload.none(), (req, res) => {
   console.log("inside /deleteSingle");
   let imgPath = req.query.imgPath;

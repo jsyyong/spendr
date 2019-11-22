@@ -44,6 +44,25 @@ class Login extends Component {
     this.setState({ usernameInput: "" });
     this.setState({ passwordInput: "" });
   };
+
+  componentDidMount = async () => {
+    let response = await fetch("/check-login", {
+      method: "POST",
+      credentials: "include"
+    });
+    let responseBody = await response.text();
+    console.log("responseBody from login", responseBody);
+    let body = JSON.parse(responseBody);
+    console.log("parsed body", body);
+    if (!body.success) {
+      console.log("cookie fail");
+      return;
+    }
+    this.props.dispatch({
+      type: "signin"
+    });
+  };
+
   render = () => {
     return (
       <div>
