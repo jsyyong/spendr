@@ -7,7 +7,6 @@ import HomePage from "./HomePage.jsx";
 import ProductDetails from "./ProductDetails.jsx";
 import { Route, BrowserRouter } from "react-router-dom";
 import Search from "./Search.jsx";
-import SearchResults from "./SearchResults.jsx";
 import { Link } from "react-router-dom";
 import SignUpLogin from "./SignUpLogin.jsx";
 
@@ -36,12 +35,14 @@ class unconnectedApp extends Component {
   };
   renderSearchResults = () => {
     console.log("inside render search results");
-    return (
-      <div>
-        <div className="nav-bar">
-          <Search />
-          <SignUp />
-          <Login />
+    if (this.props.username === "") {
+      return (
+        <div>
+          <div className="nav-bar">
+            <Search />
+            <SignUp />
+            <Login />
+          </div>
         </div>
       );
     } else {
@@ -72,9 +73,9 @@ class unconnectedApp extends Component {
               </Link>
             </div>
             <div className="divLoginButton">
-            <Link to="/signUpLogin">
-              <button className="loginButton">Login</button>
-            </Link>
+              <Link to="/signUpLogin">
+                <button className="loginButton">Login</button>
+              </Link>
             </div>
           </div>
           <HomePage />
