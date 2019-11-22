@@ -35,6 +35,7 @@ app.post("/deleteAll", upload.none(), (req, res) => {
   dbo.collection("products").deleteMany({});
   res.json({ success: true });
 });
+
 //Login Endpoint
 app.post("/login", upload.none(), (req, res) => {
   console.log("login", req.body);
@@ -109,7 +110,7 @@ app.post("/createProduct", upload.single("img"), (req, res) => {
   console.log("request to /createProduct. body: ", req.body);
   let description = req.body.description;
   let brand = req.body.brand;
-  let productName = req.body.productName
+  let productName = req.body.productName;
   let size = req.body.size;
   let price = req.body.price;
   let stock = req.body.stock;

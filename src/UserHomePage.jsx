@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import Products from "./Products.jsx";
 import { Link } from "react-router-dom";
+import DeleteSingle from "./DeleteSingle.jsx";
 
 class unconnectedUserHomePage extends Component {
   constructor(props) {
@@ -29,6 +30,7 @@ class unconnectedUserHomePage extends Component {
       this.setState({ [field]: event.target.value });
     };
   };
+  deleteProduct = () => {};
 
   reload = async () => {
     let name = this.state.username;
@@ -139,6 +141,7 @@ class unconnectedUserHomePage extends Component {
               <Link to={"/detail/" + product._id}>
                 <img height="600px" src={product.imgPath} />
               </Link>
+              <DeleteSingle product={product} />
               {/* <Products key={"q" + product._id} product={product} /> */}
             </div>
           ))}
