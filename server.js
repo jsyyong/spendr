@@ -41,41 +41,28 @@ app.post("/login", upload.none(), (req, res) => {
   let name = req.body.username;
   let enteredPassword = req.body.password;
   dbo.collection("users").findOne({ username: name }, (err, user) => {
-    if (err) {
+    if (err || user === null || user.password !== enteredPassword) {
       console.log("/login error", err);
       res.send(JSON.stringify({ success: false }));
       return;
     }
-    if (user === null) {
-      console.log("user = null");
-      res.send(JSON.stringify({ success: false }));
-      return;
-    }
-    if (user.password === enteredPassword) {
-      console.log("user pwd = pwd");
-      let sessionId = req.cookies.sessionId;
-      dbo
-        .collection("user")
-        .findOne({ sessionId: sessionId }, (err, session) => {
-          if (session === null) {
-            let sessionId = generateId();
-            console.log("session", sessionId);
-            dbo
-              .collection("sessions")
-              .insertOne(
-                { username: name, sessionId: sessionId },
-                (error, insertedSession) => {
-                  res.cookie("sessionId", sessionId);
-                  res.send(JSON.stringify({ success: true }));
-                }
-              );
-          }
-        });
-      //then we associate username with session id
-      return;
-    }
-    console.log("else, fail");
-    res.send(JSON.stringify({ success: false }));
+    let sessionId = req.cookies.sessionId;
+    dbo.collection("user").findOne({ sessionId: sessionId }, (err, session) => {
+      if (session === null) {
+        let sessionId = generateId();
+        console.log("session", sessionId);
+        dbo
+          .collection("sessions")
+          .insertOne(
+            { username: name, sessionId: sessionId },
+            (error, insertedSession) => {
+              res.cookie("sessionId", sessionId);
+              res.send(JSON.stringify({ success: true }));
+            }
+          );
+      }
+    });
+    return;
   });
 });
 
@@ -86,37 +73,34 @@ app.post("/signup", upload.none(), (req, res) => {
   let pwd = req.body.password;
 
   dbo.collection("users").findOne({ username: name }, (err, user) => {
-    if (err) {
+    if (err || user !== null) {
       console.log("/login error", err);
       res.send(JSON.stringify({ success: false }));
       return;
     }
-    if (user === null) {
-      console.log(name + " is available!");
-      //console.log("generate session id: ", sessionId);
 
-      dbo
-        .collection("users")
-        .insertOne({ username: name, password: pwd }, (error, insertedUser) => {
-          let sessionId = generateId();
-          console.log("generated id", sessionId);
+    console.log(name + " is available!");
+    //console.log("generate session id: ", sessionId);
 
-          dbo
-            .collection("sessions")
-            .insertOne(
-              { username: name, sessionId: sessionId },
-              (error, insertedSession) => {
-                res.cookie("sessionId", sessionId);
-                res.send(JSON.stringify({ success: true }));
-                return;
-              }
-            );
-        });
-      res.send(JSON.stringify({ success: true }));
-      return;
-    }
-    console.log(name + " unavailable");
-    res.send(JSON.stringify({ success: false }));
+    dbo
+      .collection("users")
+      .insertOne({ username: name, password: pwd }, (error, insertedUser) => {
+        let sessionId = generateId();
+        console.log("generated id", sessionId);
+
+        dbo
+          .collection("sessions")
+          .insertOne(
+            { username: name, sessionId: sessionId },
+            (error, insertedSession) => {
+              res.cookie("sessionId", sessionId);
+              res.send(JSON.stringify({ success: true }));
+              //return;
+            }
+          );
+      });
+    //res.send(JSON.stringify({ success: true }));
+    return;
   });
 });
 
@@ -179,23 +163,6 @@ app.post("/product", upload.none(), (req, res) => {
       res.send(JSON.stringify(ps));
     });
 });
-
-/*app.get("/image-userPage", upload.none(), (req, res) => {
-  console.log("request to /image-userPage");
-  let name = req.query.username;
-  dbo
-    .collection("products")
-    .find({ seller: name }) //sort by everything the seller is selling. later on we will sort his wishlist and purchases
-    .toArray((err, ps) => {
-      if (err) {
-        console.log("error", err);
-        res.send(JSON.stringify({ success: false }));
-        return;
-      }
-      console.log("products", ps);
-      res.send(JSON.stringify(ps));
-    });
-});*/
 // Your endpoints go before this line
 
 app.all("/*", (req, res, next) => {

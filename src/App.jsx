@@ -43,22 +43,21 @@ class unconnectedApp extends Component {
           <SignUp />
           <Login />
         </div>
-        <SearchResults />
-      </div>
-    );
+      );
+    } else {
+      return <UserHomePage username={this.props.username} />;
+    }
   };
   renderProduct = routerData => {
     let productId = routerData.match.params.pid;
     let product = this.props.products.find(product => {
       return product._id === productId;
     });
-
-    //return product.imgPath;
     return (
       <div>
         <ProductDetails productId={productId} product={product} />
       </div>
-    ); //change to be made
+    );
   };
   renderHomeScreen = () => {
     if (this.props.username === "") {
