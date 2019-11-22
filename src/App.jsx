@@ -8,6 +8,9 @@ import ProductDetails from "./ProductDetails.jsx";
 import { Route, BrowserRouter } from "react-router-dom";
 import Search from "./Search.jsx";
 import SearchResults from "./SearchResults.jsx";
+import Seller from "./Seller.jsx";
+import Cart from "./Cart.jsx";
+import { Link } from "react-router-dom";
 
 class unconnectedApp extends Component {
   // 1
@@ -30,6 +33,9 @@ class unconnectedApp extends Component {
     this.setState({ passwordInput: evt.target.value }); // 5
   }; // 5
 
+  renderCart = () => {
+    return <Cart />;
+  };
   /*renderItem = async () => {
     let productId = routerData.match.params.pid;
     //console.log("product ID:", productId)
@@ -52,8 +58,22 @@ class unconnectedApp extends Component {
           <Search />
           <SignUp />
           <Login />
+          <Link to="/cart">Shopping bag</Link>
         </div>
         <SearchResults />
+      </div>
+    );
+  };
+  renderSeller = routerData => {
+    let sellerId = routerData.match.params.pid;
+    let sellerProduct = this.props.products.filter(product => {
+      console.log(sellerId);
+      return product.seller === sellerId;
+    });
+    console.log(sellerProduct);
+    return (
+      <div>
+        <Seller sellerId={sellerId} sellerProduct={sellerProduct} />
       </div>
     );
   };
@@ -79,10 +99,13 @@ class unconnectedApp extends Component {
             <Search />
             <SignUp />
             <Login />
+            <Link to="/cart">Shopping bag</Link>
           </div>
           <HomePage />
           <Route exact={true} path="/detail/:pid" render={this.renderProduct} />
           <Route exact={true} path="/detail/:pid" render={this.renderItem} />
+          <Route exact={true} path="/cart" render={this.renderCart} />
+
           <SearchResults />
         </div>
       );
@@ -97,6 +120,10 @@ class unconnectedApp extends Component {
       <BrowserRouter>
         <Route exact={true} path="/" render={this.renderHomeScreen} />
         <Route exact={true} path="/detail/:pid" render={this.renderProduct} />
+        <Route exact={true} path="/seller/:pid" render={this.renderSeller} />
+
+        <Route exact={true} path="/cart" render={this.renderCart} />
+
         <Route
           exact={true}
           path="/searchResults"
