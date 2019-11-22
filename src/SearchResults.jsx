@@ -1,5 +1,6 @@
 import { connect } from "react-redux";
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 class UnconnectedSearchResults extends Component {
   handleResults = async () => {
     let response = await fetch(
@@ -22,7 +23,9 @@ class UnconnectedSearchResults extends Component {
     return this.props.searchResults.map(result => {
       return (
         <div key={result._id}>
-          <img height="200px" key={"i" + result._id} src={result.imgPath} />
+          <Link to={"/detail/" + result._id}>
+            <img height="200px" key={"i" + result._id} src={result.imgPath} />
+          </Link>
           <div key={"d" + result._id}>{result.price}</div>
         </div>
       );

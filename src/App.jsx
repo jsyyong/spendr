@@ -83,7 +83,6 @@ class unconnectedApp extends Component {
           <HomePage />
           <Route exact={true} path="/detail/:pid" render={this.renderProduct} />
           <Route exact={true} path="/detail/:pid" render={this.renderItem} />
-          <SearchResults />
         </div>
       );
     } else {
