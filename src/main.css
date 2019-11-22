@@ -135,7 +135,12 @@ input[type="file"] {
   margin: 5px 0px 5px 0px;
 }
 
-.hp-products {
+.hpProducts {
+  display: flex;
+  flex-wrap: wrap;
+  width: auto;
+}
+.userHpProducts{
   display: flex;
   flex-wrap: wrap;
   width: auto;

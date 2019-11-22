@@ -105,10 +105,11 @@ app.post("/signup", upload.none(), (req, res) => {
 });
 
 //Upload Form Endpoint
-app.post("/createItem", upload.single("img"), (req, res) => {
-  console.log("request to /createItem. body: ", req.body);
+app.post("/createProduct", upload.single("img"), (req, res) => {
+  console.log("request to /createProduct. body: ", req.body);
   let description = req.body.description;
   let brand = req.body.brand;
+  let productName = req.body.productName
   let size = req.body.size;
   let price = req.body.price;
   let stock = req.body.stock;
@@ -118,6 +119,7 @@ app.post("/createItem", upload.single("img"), (req, res) => {
   dbo.collection("products").insertOne({
     description: description,
     brand: brand,
+    productName: productName,
     size: size,
     price: price,
     stock: stock,

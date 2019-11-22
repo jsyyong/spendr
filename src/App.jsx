@@ -48,8 +48,16 @@ class unconnectedApp extends Component {
         <div>
           <div className="nav-bar">
             <Search />
-            <SignUp />
-            <Login />
+            <div className="divSignUpButton">
+              <Link to="/signUpLogin">
+                <button className="signUpButton">SignUp</button>
+              </Link>
+            </div>
+            <div className="divLoginButton">
+              <Link to="/signUpLogin">
+                <button className="loginButton">Login</button>
+              </Link>
+            </div>
           </div>
           <SearchResults />
         </div>

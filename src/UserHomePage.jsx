@@ -53,7 +53,7 @@ class unconnectedUserHomePage extends Component {
     data.append("price", this.state.price);
     data.append("stock", this.state.stock);
     data.append("seller", this.props.username);
-    await fetch("/createItem", { method: "POST", body: data });
+    await fetch("/createProduct", { method: "POST", body: data });
     this.setState({ brand: "" });
     this.setState({ productName: "" });
     this.setState({ description: "" });
@@ -63,9 +63,6 @@ class unconnectedUserHomePage extends Component {
     this.reload();
   };
   render = () => {
-    let styleWidth = {
-      width: "200px"
-    };
     return (
       <div>
         username: {this.props.username}
@@ -74,7 +71,7 @@ class unconnectedUserHomePage extends Component {
             <input type="file" onChange={this.fileChangeHandler} required />
             Image
           </label>
-          <div className="custom-select" style={styleWidth}>
+          <div className="custom-select">
             <select>
               <option value="pants">Pants</option>
               <option value="shirts">Shirt</option>
@@ -136,11 +133,11 @@ class unconnectedUserHomePage extends Component {
           />
           <input className="userInput" type="submit" value="Upload" />
         </form>
-        <div>
+        <div className="userHpProducts">
           {this.state.products.map(product => (
             <div key={"f" + product._id}>
               <Link to={"/detail/" + product._id}>
-                <img style={styleWidth} src={product.imgPath} />
+                <img height="600px" src={product.imgPath} />
               </Link>
               {/* <Products key={"q" + product._id} product={product} /> */}
             </div>
