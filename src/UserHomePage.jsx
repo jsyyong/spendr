@@ -47,7 +47,7 @@ class unconnectedUserHomePage extends Component {
     data.append("img", this.state.file);
     data.append("category", this.state.category);
     data.append("brand", this.state.brand);
-    data.append("product name", this.state.productName);
+    data.append("productName", this.state.productName);
     data.append("description", this.state.description);
     data.append("size", this.state.size);
     data.append("price", this.state.price);

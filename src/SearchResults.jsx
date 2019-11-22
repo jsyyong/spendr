@@ -21,7 +21,7 @@ class UnconnectedSearchResults extends Component {
   render = () => {
     console.log("inside render searchResults", this.props.searchResults);
     return (
-      <div>
+      <div className="searchResultProducts">
         {this.props.searchResults.map(result => {
           return (
             <div key={result._id}>

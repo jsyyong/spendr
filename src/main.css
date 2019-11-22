@@ -1,5 +1,5 @@
 body {
-  background-color: #bbb;
+  background-color: white;
   margin: 0;
 }
 
@@ -139,9 +139,32 @@ input[type="file"] {
   display: flex;
   flex-wrap: wrap;
   width: auto;
+  padding: 0px;
+  margin: 0px;
 }
-.userHpProducts{
+.userHpProducts {
   display: flex;
   flex-wrap: wrap;
   width: auto;
+}
+
+.searchResultProducts {
+  display: flex;
+  flex-wrap: wrap;
+  width: auto;
+}
+
+.ProductDetails {
+  display: flex;
+  /* flex-wrap: wrap; */
+  width: auto;
+  font-family: Helvetica, sans-serif;
+}
+
+.ProductDetailsInfo {
+  display: block;
+  position: relative;
+  top: 350px;
+  left: 100px;
+  width: 400px;
 }
