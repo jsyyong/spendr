@@ -141,7 +141,7 @@ class unconnectedUserHomePage extends Component {
               <Link to={"/detail/" + product._id}>
                 <img height="600px" src={product.imgPath} />
               </Link>
-              <DeleteSingle product={product} />
+              <DeleteSingle reload={this.reload} product={product} />
               {/* <Products key={"q" + product._id} product={product} /> */}
             </div>
           ))}

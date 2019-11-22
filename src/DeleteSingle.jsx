@@ -10,11 +10,13 @@ class unconnectedDeleteSingle extends Component {
   deleteHandler = async event => {
     let imgPath = this.state.product.imgPath;
     console.log(imgPath);
-    /*event.preventDefault();
-    let response = await fetch("/deleteAll?imgPath", { method: "POST" });
+    event.preventDefault();
+    let response = await fetch("/deleteSingle?imgPath=" + imgPath, {
+      method: "POST"
+    });
     let body = await response.json();
-    console.log("deleteAllHandler body", body);
-    this.props.reload();*/
+    console.log("deleteHandler body", body);
+    this.props.reload();
   };
 
   render = () => {
