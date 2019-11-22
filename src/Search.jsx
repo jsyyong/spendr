@@ -20,9 +20,8 @@ class UnconnectedSearch extends Component {
 
   render = () => {
     return (
-      <div>
-        Search
-        <input
+      <div className="search">
+        <input className="inputSearch"
           type="text"
           placeholder="Search"
           onChange={this.onChangeHandler}
@@ -35,7 +34,7 @@ class UnconnectedSearch extends Component {
 }
 
 let mapStateToProps = st => {
-   return {
+  return {
     query: st.searchQuery
   };
 };

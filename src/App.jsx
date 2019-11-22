@@ -8,6 +8,8 @@ import ProductDetails from "./ProductDetails.jsx";
 import { Route, BrowserRouter } from "react-router-dom";
 import Search from "./Search.jsx";
 import SearchResults from "./SearchResults.jsx";
+import { Link } from "react-router-dom";
+import SignUpLogin from "./SignUpLogin.jsx";
 
 class unconnectedApp extends Component {
   // 1
@@ -29,26 +31,14 @@ class unconnectedApp extends Component {
     // 5
     this.setState({ passwordInput: evt.target.value }); // 5
   }; // 5
-
-  /*renderItem = async () => {
-    let productId = routerData.match.params.pid;
-    //console.log("product ID:", productId)
-    let products = await fetch("/product", { method: "POST" });
-    let body = await products.text();
-    body = JSON.parse(body);
-    console.log("/product response", body);
-    this.setState({ products: body });
-    let sortedProducts = this.state.products.map(product => {
-      return product.imgPath === productId;
-    }); //should only return one object
-    return <ProductDetail imgPath={productId} />;
-  };*/
+  renderSignUpLogin = () => {
+    return <SignUpLogin />;
+  };
   renderSearchResults = () => {
-    let flex = { display: "flex" };
     console.log("inside render search results");
     return (
       <div>
-        <div className="nav-bar" style={flex}>
+        <div className="nav-bar">
           <Search />
           <SignUp />
           <Login />
@@ -71,19 +61,24 @@ class unconnectedApp extends Component {
     ); //change to be made
   };
   renderHomeScreen = () => {
-    let flex = { display: "flex" };
     if (this.props.username === "") {
       return (
         <div>
-          <div className="nav-bar" style={flex}>
+          <div className="nav-bar">
+            <h1>SPENDR</h1>
             <Search />
-            <SignUp />
-            <Login />
+            <div className="divSignUpButton">
+              <Link to="/signUpLogin">
+                <button className="signUpButton">SignUp</button>
+              </Link>
+            </div>
+            <div className="divLoginButton">
+            <Link to="/signUpLogin">
+              <button className="loginButton">Login</button>
+            </Link>
+            </div>
           </div>
           <HomePage />
-          <Route exact={true} path="/detail/:pid" render={this.renderProduct} />
-          <Route exact={true} path="/detail/:pid" render={this.renderItem} />
-          <SearchResults />
         </div>
       );
     } else {
@@ -101,6 +96,11 @@ class unconnectedApp extends Component {
           exact={true}
           path="/searchResults"
           render={this.renderSearchResults}
+        />
+        <Route
+          exact={true}
+          path="/signUpLogin"
+          render={this.renderSignUpLogin}
         />
       </BrowserRouter>
     ); // 3
