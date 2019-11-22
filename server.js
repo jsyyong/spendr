@@ -163,23 +163,6 @@ app.post("/product", upload.none(), (req, res) => {
       res.send(JSON.stringify(ps));
     });
 });
-
-/*app.get("/image-userPage", upload.none(), (req, res) => {
-  console.log("request to /image-userPage");
-  let name = req.query.username;
-  dbo
-    .collection("products")
-    .find({ seller: name }) //sort by everything the seller is selling. later on we will sort his wishlist and purchases
-    .toArray((err, ps) => {
-      if (err) {
-        console.log("error", err);
-        res.send(JSON.stringify({ success: false }));
-        return;
-      }
-      console.log("products", ps);
-      res.send(JSON.stringify(ps));
-    });
-});*/
 // Your endpoints go before this line
 
 app.all("/*", (req, res, next) => {
