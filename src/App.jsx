@@ -30,45 +30,34 @@ class unconnectedApp extends Component {
     this.setState({ passwordInput: evt.target.value }); // 5
   }; // 5
 
-  /*renderItem = async () => {
-    let productId = routerData.match.params.pid;
-    //console.log("product ID:", productId)
-    let products = await fetch("/product", { method: "POST" });
-    let body = await products.text();
-    body = JSON.parse(body);
-    console.log("/product response", body);
-    this.setState({ products: body });
-    let sortedProducts = this.state.products.map(product => {
-      return product.imgPath === productId;
-    }); //should only return one object
-    return <ProductDetail imgPath={productId} />;
-  };*/
   renderSearchResults = () => {
     let flex = { display: "flex" };
     console.log("inside render search results");
-    return (
-      <div>
-        <div className="nav-bar" style={flex}>
-          <Search />
-          <SignUp />
-          <Login />
+    if (this.props.username === "") {
+      return (
+        <div>
+          <div className="nav-bar" style={flex}>
+            <Search />
+            <SignUp />
+            <Login />
+          </div>
+          <SearchResults />
         </div>
-        <SearchResults />
-      </div>
-    );
+      );
+    } else {
+      return <UserHomePage username={this.props.username} />;
+    }
   };
   renderProduct = routerData => {
     let productId = routerData.match.params.pid;
     let product = this.props.products.find(product => {
       return product._id === productId;
     });
-
-    //return product.imgPath;
     return (
       <div>
         <ProductDetails productId={productId} product={product} />
       </div>
-    ); //change to be made
+    );
   };
   renderHomeScreen = () => {
     let flex = { display: "flex" };
@@ -81,8 +70,6 @@ class unconnectedApp extends Component {
             <Login />
           </div>
           <HomePage />
-          <Route exact={true} path="/detail/:pid" render={this.renderProduct} />
-          <Route exact={true} path="/detail/:pid" render={this.renderItem} />
         </div>
       );
     } else {
