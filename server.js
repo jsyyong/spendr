@@ -35,6 +35,21 @@ app.post("/deleteAll", upload.none(), (req, res) => {
   dbo.collection("products").deleteMany({});
   res.json({ success: true });
 });
+
+// Your endpoints go after this line
+app.post("/deleteSingle", upload.none(), (req, res) => {
+  console.log("inside /deleteSingle");
+  let imgPath = req.query.imgPath;
+  console.log("req query", imgPath);
+  dbo.collection("products").remove({ imgPath: imgPath }, err => {
+    if (err) {
+      console.log("/deleteSingle fail");
+      res.send(JSON.stringify({ success: false }));
+    }
+    res.send(JSON.stringify({ success: true }));
+  });
+});
+
 //Login Endpoint
 app.post("/login", upload.none(), (req, res) => {
   console.log("login", req.body);
