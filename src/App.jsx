@@ -10,6 +10,8 @@ import Search from "./Search.jsx";
 import { Link } from "react-router-dom";
 import SignUpLogin from "./SignUpLogin.jsx";
 import SearchResults from "./SearchResults.jsx";
+import Seller from "./Seller.jsx";
+import Cart from "./Cart.jsx";
 
 class unconnectedApp extends Component {
   // 1
@@ -31,6 +33,11 @@ class unconnectedApp extends Component {
     // 5
     this.setState({ passwordInput: evt.target.value }); // 5
   }; // 5
+
+  renderCart = () => {
+    return <Cart />;
+  };
+
   renderSignUpLogin = () => {
     return <SignUpLogin />;
   };
@@ -51,6 +58,19 @@ class unconnectedApp extends Component {
       return <UserHomePage username={this.props.username} />;
     }
   };
+  renderSeller = routerData => {
+    let sellerId = routerData.match.params.pid;
+    let sellerProduct = this.props.products.filter(product => {
+      console.log(sellerId);
+      return product.seller === sellerId;
+    });
+    console.log(sellerProduct);
+    return (
+      <div>
+        <Seller sellerId={sellerId} sellerProduct={sellerProduct} />
+      </div>
+    );
+  };
   renderProduct = routerData => {
     let productId = routerData.match.params.pid;
     let product = this.props.products.find(product => {
@@ -69,6 +89,7 @@ class unconnectedApp extends Component {
           <div className="nav-bar">
             <h1>SPENDR</h1>
             <Search />
+            <Link to="/cart">Shopping bag</Link>
             <div className="divSignUpButton">
               <Link to="/signUpLogin">
                 <button className="signUpButton">SignUp</button>
@@ -94,6 +115,10 @@ class unconnectedApp extends Component {
       <BrowserRouter>
         <Route exact={true} path="/" render={this.renderHomeScreen} />
         <Route exact={true} path="/detail/:pid" render={this.renderProduct} />
+        <Route exact={true} path="/seller/:pid" render={this.renderSeller} />
+
+        <Route exact={true} path="/cart" render={this.renderCart} />
+
         <Route
           exact={true}
           path="/searchResults"

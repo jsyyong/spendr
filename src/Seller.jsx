@@ -4,35 +4,23 @@ import { Link } from "react-router-dom";
 import ProductDetails from "./ProductDetails.jsx";
 import { Route, BrowserRouter } from "react-router-dom";
 class unconnectedSeller extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      product: [], //the seller's product array
-      seller: this.props.seller
+      product: [] //the seller's product array
     };
   }
-
-  reload = async () => {
-    let seller = this.state.seller;
-    let response = await fetch("/product?seller=" + seller);
-    let body = await response.text();
-    body = JSON.parse(body);
-    // console.log("/product response", body);
-    this.setState({ products: body.reverse() });
-  };
-  componentDidMount = () => {
-    this.reload();
-  };
 
   render = () => {
     let styleWidth = {
       width: "200px"
     };
+    console.log(this.props.sellerProduct);
     return (
       <div>
-        <h2>{this.state.seller}</h2>
-        {this.state.product.reverse().map(product => (
-          <div key={"s" + product._id}>
+        <p>{this.props.sellerId}</p>
+        {this.props.sellerProduct.map(product => (
+          <div key={product._id}>
             <Link to={"/detail/" + product._id}>
               <img style={styleWidth} src={product.imgPath} />
             </Link>

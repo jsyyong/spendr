@@ -4,6 +4,13 @@ let reducer = (state, action) => {
   if (action.type === "set-username") {
     return { ...state, username: action.name, loggedIn: true };
   }
+  if (action.type === "add-cart") {
+    let cartItems = state.cartItems
+      ? [...state.cartItems, action.data]
+      : [action.data];
+
+    return { ...state, cartItems };
+  }
   if (action.type === "signin") {
     return { ...state, loggedIn: true };
   }
