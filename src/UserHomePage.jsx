@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Products from "./Products.jsx";
+import { Link } from "react-router-dom";
 
 class unconnectedUserHomePage extends Component {
   constructor(props) {
@@ -137,7 +138,12 @@ class unconnectedUserHomePage extends Component {
         </form>
         <div>
           {this.state.products.map(product => (
-            <Products key={"q" + product._id} product={product} />
+            <div key={"f" + product._id}>
+              <Link to={"/detail/" + product._id}>
+                <img style={styleWidth} src={product.imgPath} />
+              </Link>
+              {/* <Products key={"q" + product._id} product={product} /> */}
+            </div>
           ))}
         </div>
       </div>

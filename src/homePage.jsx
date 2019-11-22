@@ -16,15 +16,12 @@ class unconnectedHomePage extends Component {
     this.reload();
   };
   render = () => {
-    let styleWidth = {
-      width: "300px"
-    };
     return (
-      <div>
+      <div className="hp-products">
         {this.props.products.reverse().map(product => (
           <div key={"f" + product._id}>
             <Link to={"/detail/" + product._id}>
-              <img style={styleWidth} src={product.imgPath} />
+              <img height="600px" src={product.imgPath} />
             </Link>
           </div>
         ))}
