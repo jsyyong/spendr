@@ -17,7 +17,7 @@ class unconnectedHomePage extends Component {
   };
   render = () => {
     return (
-      <div className="hp-products">
+      <div className="hpProducts">
         {this.props.products.reverse().map(product => (
           <div key={"f" + product._id}>
             <Link to={"/detail/" + product._id}>

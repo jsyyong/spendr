@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import Products from "./Products.jsx";
 import { Link } from "react-router-dom";
+import DeleteSingle from "./DeleteSingle.jsx";
 
 class unconnectedUserHomePage extends Component {
   constructor(props) {
@@ -29,6 +30,7 @@ class unconnectedUserHomePage extends Component {
       this.setState({ [field]: event.target.value });
     };
   };
+  deleteProduct = () => {};
 
   reload = async () => {
     let name = this.state.username;
@@ -47,13 +49,13 @@ class unconnectedUserHomePage extends Component {
     data.append("img", this.state.file);
     data.append("category", this.state.category);
     data.append("brand", this.state.brand);
-    data.append("product name", this.state.productName);
+    data.append("productName", this.state.productName);
     data.append("description", this.state.description);
     data.append("size", this.state.size);
     data.append("price", this.state.price);
     data.append("stock", this.state.stock);
     data.append("seller", this.props.username);
-    await fetch("/createItem", { method: "POST", body: data });
+    await fetch("/createProduct", { method: "POST", body: data });
     this.setState({ brand: "" });
     this.setState({ productName: "" });
     this.setState({ description: "" });
@@ -63,9 +65,6 @@ class unconnectedUserHomePage extends Component {
     this.reload();
   };
   render = () => {
-    let styleWidth = {
-      width: "200px"
-    };
     return (
       <div>
         username: {this.props.username}
@@ -74,7 +73,7 @@ class unconnectedUserHomePage extends Component {
             <input type="file" onChange={this.fileChangeHandler} required />
             Image
           </label>
-          <div className="custom-select" style={styleWidth}>
+          <div className="custom-select">
             <select>
               <option value="pants">Pants</option>
               <option value="shirts">Shirt</option>
@@ -136,12 +135,13 @@ class unconnectedUserHomePage extends Component {
           />
           <input className="userInput" type="submit" value="Upload" />
         </form>
-        <div>
+        <div className="userHpProducts">
           {this.state.products.map(product => (
             <div key={"f" + product._id}>
               <Link to={"/detail/" + product._id}>
-                <img style={styleWidth} src={product.imgPath} />
+                <img height="600px" src={product.imgPath} />
               </Link>
+              <DeleteSingle reload={this.reload} product={product} />
               {/* <Products key={"q" + product._id} product={product} /> */}
             </div>
           ))}

@@ -35,6 +35,21 @@ app.post("/deleteAll", upload.none(), (req, res) => {
   dbo.collection("products").deleteMany({});
   res.json({ success: true });
 });
+
+// Your endpoints go after this line
+app.post("/deleteSingle", upload.none(), (req, res) => {
+  console.log("inside /deleteSingle");
+  let imgPath = req.query.imgPath;
+  console.log("req query", imgPath);
+  dbo.collection("products").remove({ imgPath: imgPath }, err => {
+    if (err) {
+      console.log("/deleteSingle fail");
+      res.send(JSON.stringify({ success: false }));
+    }
+    res.send(JSON.stringify({ success: true }));
+  });
+});
+
 //Login Endpoint
 app.post("/login", upload.none(), (req, res) => {
   console.log("login", req.body);
@@ -105,10 +120,11 @@ app.post("/signup", upload.none(), (req, res) => {
 });
 
 //Upload Form Endpoint
-app.post("/createItem", upload.single("img"), (req, res) => {
-  console.log("request to /createItem. body: ", req.body);
+app.post("/createProduct", upload.single("img"), (req, res) => {
+  console.log("request to /createProduct. body: ", req.body);
   let description = req.body.description;
   let brand = req.body.brand;
+  let productName = req.body.productName;
   let size = req.body.size;
   let price = req.body.price;
   let stock = req.body.stock;
@@ -118,6 +134,7 @@ app.post("/createItem", upload.single("img"), (req, res) => {
   dbo.collection("products").insertOne({
     description: description,
     brand: brand,
+    productName: productName,
     size: size,
     price: price,
     stock: stock,

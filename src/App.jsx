@@ -47,9 +47,18 @@ class unconnectedApp extends Component {
       return (
         <div>
           <div className="nav-bar">
+            <h1>SPENDR</h1>
             <Search />
-            <SignUp />
-            <Login />
+            <div className="divSignUpButton">
+              <Link to="/signUpLogin">
+                <button className="signUpButton">SignUp</button>
+              </Link>
+            </div>
+            <div className="divLoginButton">
+              <Link to="/signUpLogin">
+                <button className="loginButton">Login</button>
+              </Link>
+            </div>
           </div>
           <SearchResults />
         </div>
@@ -78,7 +87,23 @@ class unconnectedApp extends Component {
     });
     return (
       <div>
-        <ProductDetails productId={productId} product={product} />
+        <div className="nav-bar">
+          <h1>SPENDR</h1>
+          <Search />
+          <div className="divSignUpButton">
+            <Link to="/signUpLogin">
+              <button className="signUpButton">SignUp</button>
+            </Link>
+          </div>
+          <div className="divLoginButton">
+            <Link to="/signUpLogin">
+              <button className="loginButton">Login</button>
+            </Link>
+          </div>
+        </div>
+        <div>
+          <ProductDetails productId={productId} product={product} />
+        </div>
       </div>
     );
   };
