@@ -9,6 +9,7 @@ import { Route, BrowserRouter } from "react-router-dom";
 import Search from "./Search.jsx";
 import { Link } from "react-router-dom";
 import SignUpLogin from "./SignUpLogin.jsx";
+import SearchResults from "./SearchResults.jsx";
 
 class unconnectedApp extends Component {
   // 1
@@ -43,6 +44,7 @@ class unconnectedApp extends Component {
             <SignUp />
             <Login />
           </div>
+          <SearchResults />
         </div>
       );
     } else {

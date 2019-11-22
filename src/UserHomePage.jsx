@@ -142,8 +142,8 @@ class unconnectedUserHomePage extends Component {
               <Link to={"/detail/" + product._id}>
                 <img style={styleWidth} src={product.imgPath} />
               </Link>
+              {/* <Products key={"q" + product._id} product={product} /> */}
             </div>
-            //<Products key={"q" + product._id} product={product} />
           ))}
         </div>
       </div>
