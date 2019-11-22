@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 class unconnectedCart extends Component {
+  purchaseHandler = () => {
+    alert("Congratulation!");
+  };
   render() {
     console.log(this.props.cartItems);
     return (
@@ -19,6 +22,8 @@ class unconnectedCart extends Component {
             <div></div>
           )}
         </ul>
+        <br />
+        <button onClick={this.purchaseHandler}>Purchase</button>
       </div>
     );
   }
