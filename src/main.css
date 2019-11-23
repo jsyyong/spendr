@@ -1,4 +1,5 @@
 body {
+  box-sizing: border-box;
   background-color: white;
   margin: 0;
 }
@@ -85,7 +86,7 @@ input[type="file"] {
 .nav-bar {
   box-sizing: border-box;
   display: grid;
-  grid-template-columns: repeat(8, 1fr);
+  grid-template-columns: repeat(16, 1fr);
   grid-template-rows: 1fr;
   grid-column-gap: 0px;
   grid-row-gap: 0px;
@@ -94,10 +95,17 @@ input[type="file"] {
   font-family: Helvetica, sans-serif;
 }
 
+.divCart {
+  grid-area: 1 / 14 / 2 / 15;
+  display: flex;
+  align-items: center;
+}
+
 .search {
   box-sizing: border-box;
   margin: 5px 0px 5px 0px;
-  grid-area: 1 / 4 / 2 / 6;
+  grid-area: 1 / 7 / 2 / 11;
+  text-align: center;
 }
 .inputSearch {
   border-radius: 50px;
@@ -133,21 +141,22 @@ input[type="file"] {
   font-size: 16px;
   font-weight: 400;
   grid-area: 1 / 1 / 2 / 2;
+  display: flex;
+  align-items: center;
 }
 
 .divSignUpButton {
-  grid-area: 1 / 7 / 2 / 8;
+  grid-area: 1 / 15 / 2 / 16;
+  display: flex;
+  align-items: center;
 }
 .divLoginButton {
-  grid-area: 1 / 8 / 2 / 9;
+  grid-area: 1 / 16 / 2 / 17;
+  display: flex;
+  align-items: center;
 }
-.signUpButton {
-  background-color: black;
-  color: white;
-  border: none;
-  margin: 5px 0px 5px 0px;
-}
-.loginButton {
+.nav-bar button {
+  box-sizing: border-box;
   background-color: black;
   color: white;
   border: none;
@@ -178,17 +187,19 @@ input[type="file"] {
   /* flex-wrap: wrap; */
   width: auto;
   font-family: Helvetica, sans-serif;
+  justify-content: center;
 }
 
 .ProductDetailsInfo {
   display: block;
   position: relative;
   top: 350px;
-  left: 100px;
+  left: 50px;
   width: 400px;
   height: 850px;
 }
 
 .ProductDetailsImg {
-  margin-left: 100px;
+  position: relative;
+  left: -100px;
 }

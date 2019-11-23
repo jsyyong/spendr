@@ -114,15 +114,19 @@ class unconnectedApp extends Component {
           <div className="nav-bar">
             <h1>SPENDR</h1>
             <Search />
-            <Link to="/cart">Shopping bag</Link>
+            <div className="divCart">
+              <Link to="/cart">
+                <button>Cart</button>
+              </Link>
+            </div>
             <div className="divSignUpButton">
               <Link to="/signUpLogin">
-                <button className="signUpButton">SignUp</button>
+                <button>SignUp</button>
               </Link>
             </div>
             <div className="divLoginButton">
               <Link to="/signUpLogin">
-                <button className="loginButton">Login</button>
+                <button>Login</button>
               </Link>
             </div>
           </div>
