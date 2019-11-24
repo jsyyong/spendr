@@ -34,7 +34,8 @@ class SignUp extends Component {
       // 9
       this.setState({ username: name }); // 9
       this.props.dispatch({ type: "signin" });
-      this.props.dispatch({ type: "set-username", name: name });
+      console.log("sessionId", body.sessionId)
+      this.props.dispatch({ type: "set-username", name: name, sessionId: body.sessionId });
       alert("Signup Success!");
       this.setState({ usernameInput: "" });
       this.setState({ passwordInput: "" });
@@ -57,7 +58,7 @@ class SignUp extends Component {
           />
           Password{" "}
           <input
-            type="text"
+            type="password"
             onChange={this.passwordChange}
             value={this.state.passwordInput}
           />

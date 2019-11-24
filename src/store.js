@@ -2,7 +2,7 @@ import { createStore } from "redux";
 
 let reducer = (state, action) => {
   if (action.type === "set-username") {
-    return { ...state, username: action.name, loggedIn: true };
+    return { ...state, username: action.name, loggedIn: true, sessionId: action.sessionId };
   }
   if (action.type === "add-cart") {
     let cartItems = state.cartItems
@@ -12,7 +12,7 @@ let reducer = (state, action) => {
     return { ...state, cartItems };
   }
   if (action.type === "signin") {
-    return { ...state, loggedIn: true };
+    return { ...state, username: action.username };
   }
   if (action.type === "set-products") {
     return { ...state, products: action.products };
@@ -22,6 +22,9 @@ let reducer = (state, action) => {
   }
   if (action.type === "set-searchResults") {
     return { ...state, searchResults: action.searchResults };
+  }
+  if (action.type === "logout") {
+    return { ...state, username: "", sessionId: ""};
   }
   return state;
 };
@@ -33,7 +36,8 @@ let store = createStore(
     username: "",
     loggedIn: false,
     searchResults: [],
-    products: []
+    products: [],
+    sessionId: ""
   },
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
