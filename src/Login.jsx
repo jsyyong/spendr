@@ -36,7 +36,8 @@ class Login extends Component {
     if (body.success) {
       // 9
       this.setState({ username: name }); // 9
-      this.props.dispatch({ type: "set-username", name: name });
+      console.log("sessionId", body.sessionId)
+      this.props.dispatch({ type: "set-username", name: name, sessionId: body.sessionId });
       alert("Login Success!");
       return;
     } // 9
@@ -44,6 +45,9 @@ class Login extends Component {
     this.setState({ usernameInput: "" });
     this.setState({ passwordInput: "" });
   };
+
+ 
+
   render = () => {
     return (
       <div>
@@ -57,7 +61,7 @@ class Login extends Component {
           />
           Password{" "}
           <input
-            type="text"
+            type="password"
             onChange={this.passwordChange}
             value={this.state.passwordInput}
           />
