@@ -41,24 +41,26 @@ app.post("/deleteAll", upload.none(), (req, res) => {
 app.post("/check-login", upload.none(), (req, res) => {
   let sessionId = req.cookies.sessionId;
   console.log("session id", sessionId);
-  dbo
-    .collection("sessions")
-    .findOne({ sessionId: sessionId }, (err, user) => {
-      if (err || user === null) {
-        console.log("/check-login failed");
-        res.send(JSON.stringify({ success: false }));
-        return;
-      }
-      console.log("the name", user.username)
-      let username = user.username;
-      if (username !== undefined) {
-        res.send(JSON.stringify({ success: true, username: username }));
-        return;
-      }
+  dbo.collection("sessions").findOne({ sessionId: sessionId }, (err, user) => {
+    if (err || user === null) {
+      console.log("/check-login failed");
       res.send(JSON.stringify({ success: false }));
-    });
-  
-  
+      return;
+    }
+    console.log("the name", user.username);
+    let username = user.username;
+    if (username !== undefined) {
+      res.send(
+        JSON.stringify({
+          success: true,
+          username: username,
+          sessionId: sessionId
+        })
+      );
+      return;
+    }
+    res.send(JSON.stringify({ success: false }));
+  });
 });
 
 app.post("/deleteSingle", upload.none(), (req, res) => {

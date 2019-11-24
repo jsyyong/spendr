@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import Products from "./Products.jsx";
 import { Link } from "react-router-dom";
 import DeleteSingle from "./DeleteSingle.jsx";
-import Logout from './Logout.jsx'
+import Logout from "./Logout.jsx";
 
 class unconnectedUserHomePage extends Component {
   constructor(props) {
@@ -68,7 +68,7 @@ class unconnectedUserHomePage extends Component {
   render = () => {
     return (
       <div>
-        username: {this.props.username}
+        <h2>Welcome, {this.props.username}!!</h2>
         <Logout />
         <form onSubmit={this.submitHandler}>
           <label className="inputImage">

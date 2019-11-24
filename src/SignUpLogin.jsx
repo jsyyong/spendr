@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import UserHomePage from "./UserHomePage.jsx";
 
 class unconnectedSignUplogin extends Component {
-
   componentDidMount = async () => {
     let response = await fetch("/check-login", {
       method: "POST",
@@ -19,10 +18,11 @@ class unconnectedSignUplogin extends Component {
       console.log("cookie fail");
       return;
     }
-    console.log("cookie dispatchinng")
+    console.log("cookie dispatchinng");
     this.props.dispatch({
-      type: "signin",
-      username: body.username
+      type: "set-username",
+      name: body.username,
+      sessionId: body.sessionId
     });
   };
 
