@@ -4,6 +4,7 @@ import Products from "./Products.jsx";
 import { Link } from "react-router-dom";
 import DeleteSingle from "./DeleteSingle.jsx";
 import Logout from "./Logout.jsx";
+import Search from "./Search.jsx";
 
 class unconnectedUserHomePage extends Component {
   constructor(props) {
@@ -68,90 +69,106 @@ class unconnectedUserHomePage extends Component {
   render = () => {
     return (
       <div>
-        <h2>Welcome, {this.props.username}!!</h2>
-        <Logout />
-        <form onSubmit={this.submitHandler}>
-          <label className="inputImage">
-            <input type="file" onChange={this.fileChangeHandler} required />
-            Image
-          </label>
-          <div className="custom-select">
-            <select>
-              <option value="pants">Pants</option>
-              <option value="shirts">Shirt</option>
-              <option value="jackets">Jackets</option>
-              <option value="sweaters">Sweaters</option>
-              <option value="t-shirts">T-shirt</option>
-              <option value="shoes">Shoes</option>
-              <option value="hats">Hats</option>
-            </select>
+        <div className="nav-bar">
+          <h1>SPENDR</h1>
+          <Search />
+          <div className="divCart">
+            <Link to="/cart">
+              <button>Cart</button>
+            </Link>
           </div>
-
-          <input
-            className="userInput"
-            type="text"
-            value={this.state.brand}
-            placeholder="Brand"
-            onChange={this.onChangeHandler("brand")}
-            required
-          />
-          <input
-            className="userInput"
-            type="text"
-            value={this.state.productName}
-            placeholder="Product Name"
-            onChange={this.onChangeHandler("productName")}
-            required
-          />
-          <input
-            className="userInput"
-            type="text"
-            value={this.state.description}
-            placeholder="Description"
-            onChange={this.onChangeHandler("description")}
-            required
-          />
-          <input
-            className="userInput"
-            type="text"
-            value={this.state.size}
-            placeholder="Size"
-            onChange={this.onChangeHandler("size")}
-            required
-          />
-          <input
-            className="userInput"
-            type="text"
-            value={this.state.price}
-            placeholder="Price"
-            onChange={this.onChangeHandler("price")}
-            required
-          />
-          <input
-            className="userInput"
-            type="text"
-            value={this.state.stock}
-            placeholder="Stock"
-            onChange={this.onChangeHandler("stock")}
-            required
-          />
-          <input className="userInput" type="submit" value="Upload" />
-        </form>
-        <div className="userHpProducts">
-          {this.state.products.map(product => (
-            <div key={"f" + product._id}>
-              <Link to={"/detail/" + product._id}>
-                <img height="600px" src={product.imgPath} />
-              </Link>
-              <DeleteSingle reload={this.reload} product={product} />
-              {/* <Products key={"q" + product._id} product={product} /> */}
+          <div className="divSignUpButton">
+            <Logout />
+          </div>
+          <div className="divLoginButton">
+            <button>{this.props.username}</button>
+          </div>
+        </div>
+        <div className="userHp">
+          <form onSubmit={this.submitHandler}>
+            <label className="inputImage">
+              <input type="file" onChange={this.fileChangeHandler} required />
+              Image
+            </label>
+            <div className="custom-select">
+              <select>
+                <option value="pants">Pants</option>
+                <option value="shirts">Shirt</option>
+                <option value="jackets">Jackets</option>
+                <option value="sweaters">Sweaters</option>
+                <option value="t-shirts">T-shirt</option>
+                <option value="shoes">Shoes</option>
+                <option value="hats">Hats</option>
+              </select>
             </div>
-          ))}
+
+            <input
+              className="userInput"
+              type="text"
+              value={this.state.brand}
+              placeholder="Brand"
+              onChange={this.onChangeHandler("brand")}
+              required
+            />
+            <input
+              className="userInput"
+              type="text"
+              value={this.state.productName}
+              placeholder="Product Name"
+              onChange={this.onChangeHandler("productName")}
+              required
+            />
+            <input
+              className="userInput"
+              type="text"
+              value={this.state.description}
+              placeholder="Description"
+              onChange={this.onChangeHandler("description")}
+              required
+            />
+            <input
+              className="userInput"
+              type="text"
+              value={this.state.size}
+              placeholder="Size"
+              onChange={this.onChangeHandler("size")}
+              required
+            />
+            <input
+              className="userInput"
+              type="text"
+              value={this.state.price}
+              placeholder="Price"
+              onChange={this.onChangeHandler("price")}
+              required
+            />
+            <input
+              className="userInput"
+              type="text"
+              value={this.state.stock}
+              placeholder="Stock"
+              onChange={this.onChangeHandler("stock")}
+              required
+            />
+            <input className="userInput" type="submit" value="Upload" />
+          </form>
+          <div className="userHpProducts">
+            {this.state.products.map(product => (
+              <div key={"f" + product._id}>
+                <Link to={"/detail/" + product._id}>
+                  <img height="700px" src={product.imgPath} />
+                </Link>
+                <DeleteSingle reload={this.reload} product={product} />
+                {/* <Products key={"q" + product._id} product={product} /> */}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     );
   };
 }
+
 let mapStateToProps = st => {
   return { username: st.username };
 };
