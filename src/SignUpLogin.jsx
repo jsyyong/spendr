@@ -22,7 +22,8 @@ class unconnectedSignUplogin extends Component {
     this.props.dispatch({
       type: "set-username",
       name: body.username,
-      sessionId: body.sessionId
+      sessionId: body.sessionId,
+      loggedIn: true
     });
   };
 

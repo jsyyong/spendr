@@ -43,7 +43,7 @@ class unconnectedApp extends Component {
   };
   renderSearchResults = () => {
     console.log("inside render search results");
-    if (this.props.username === "") {
+    if (/*this.props.username === "" && */this.props.loggedIn === false) {
       return (
         <div>
           <div className="nav-bar">
@@ -108,7 +108,18 @@ class unconnectedApp extends Component {
     );
   };
   renderHomeScreen = () => {
-    if (this.props.username === "") {
+    let loginOrWelcome = () => {
+      console.log("current user", this.props.username)
+      if (this.props.username === ''){
+        return (<Link to="/signUpLogin">
+        <button className="loginButton">Login</button>
+      </Link>)
+      }
+      return(<Link to="/signUpLogin">
+      <button className="loginButton">Welcome, {this.props.username}!! </button>
+    </Link>)
+    }
+    if (/*this.props.username === "" && */this.props.loggedIn === false) {
       return (
         <div>
           <div className="nav-bar">
@@ -116,14 +127,16 @@ class unconnectedApp extends Component {
             <Search />
             <Link to="/cart">Shopping bag</Link>
             <div className="divSignUpButton">
+              
               <Link to="/signUpLogin">
                 <button className="signUpButton">SignUp</button>
               </Link>
             </div>
             <div className="divLoginButton">
-              <Link to="/signUpLogin">
+            {loginOrWelcome()}
+              {/*<Link to="/signUpLogin">
                 <button className="loginButton">Login</button>
-              </Link>
+      </Link>*/}
             </div>
           </div>
           <HomePage />
@@ -161,7 +174,8 @@ class unconnectedApp extends Component {
 let mapStateToProps = st => {
   return {
     username: st.username,
-    products: st.products
+    products: st.products,
+    loggedIn: st.loggedIn
   };
 };
 let App = connect(mapStateToProps)(unconnectedApp);
