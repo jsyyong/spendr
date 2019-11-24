@@ -3,7 +3,11 @@ import { connect } from "react-redux";
 
 class unconnectedCart extends Component {
   purchaseHandler = () => {
-    alert("Congratulation!");
+    if (this.props.cartItems.length != 0) {
+      alert("Congratulation!");
+    } else {
+      alert("Sorry. There is no item in the cart.");
+    }
   };
   render() {
     console.log(this.props.cartItems);

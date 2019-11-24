@@ -11,9 +11,10 @@ class unconnectedDeleteForm extends Component {
 
   render = () => {
     return (
-      <button type="button" onClick={this.deleteAllHandler}>
-        Delete All Products
-      </button>
+      <div></div>
+      // <button type="button" onClick={this.deleteAllHandler}>
+      //   Delete All Products
+      // </button>
     );
   };
 }

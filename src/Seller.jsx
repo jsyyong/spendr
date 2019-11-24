@@ -12,6 +12,9 @@ class unconnectedSeller extends Component {
   }
 
   render = () => {
+    let styleWidth = {
+      width: "200px"
+    };
     console.log(this.props.sellerProduct);
     return (
       <div>
@@ -19,7 +22,7 @@ class unconnectedSeller extends Component {
         {this.props.sellerProduct.map(product => (
           <div key={product._id}>
             <Link to={"/detail/" + product._id}>
-              <img height="600px" src={product.imgPath} />
+              <img style={styleWidth} src={product.imgPath} />
             </Link>
           </div>
         ))}
