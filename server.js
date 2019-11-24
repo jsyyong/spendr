@@ -41,21 +41,24 @@ app.post("/deleteAll", upload.none(), (req, res) => {
 app.post("/check-login", upload.none(), (req, res) => {
   let sessionId = req.cookies.sessionId;
   console.log("session id", sessionId);
-  let username = dbo
-    .collection("session")
-    .find({ session: sessionId }, (err, user) => {
-      if (err) {
+  dbo
+    .collection("sessions")
+    .findOne({ sessionId: sessionId }, (err, user) => {
+      if (err || user === null) {
         console.log("/check-login failed");
+        res.send(JSON.stringify({ success: false }));
         return;
       }
-      return user.username;
+      console.log("the name", user.username)
+      let username = user.username;
+      if (username !== undefined) {
+        res.send(JSON.stringify({ success: true, username: username }));
+        return;
+      }
+      res.send(JSON.stringify({ success: false }));
     });
-  console.log("username", username);
-  if (username !== undefined) {
-    res.send(JSON.stringify({ success: true }));
-    return;
-  }
-  res.send(JSON.stringify({ success: false }));
+  
+  
 });
 
 app.post("/deleteSingle", upload.none(), (req, res) => {
@@ -65,6 +68,19 @@ app.post("/deleteSingle", upload.none(), (req, res) => {
   dbo.collection("products").remove({ imgPath: imgPath }, err => {
     if (err) {
       console.log("/deleteSingle fail");
+      res.send(JSON.stringify({ success: false }));
+    }
+    res.send(JSON.stringify({ success: true }));
+  });
+});
+
+app.post("/deleteSession", upload.none(), (req, res) => {
+  console.log("inside /deleteSession");
+  let sessionId = req.query.sessionId;
+  console.log("req query to be removed", sessionId);
+  dbo.collection("sessions").remove({ sessionId: sessionId }, err => {
+    if (err) {
+      console.log("/deleteSession fail");
       res.send(JSON.stringify({ success: false }));
     }
     res.send(JSON.stringify({ success: true }));
@@ -93,7 +109,7 @@ app.post("/login", upload.none(), (req, res) => {
             { username: name, sessionId: sessionId },
             (error, insertedSession) => {
               res.cookie("sessionId", sessionId);
-              res.send(JSON.stringify({ success: true }));
+              res.send(JSON.stringify({ success: true, sessionId: sessionId }));
             }
           );
       }
@@ -130,7 +146,7 @@ app.post("/signup", upload.none(), (req, res) => {
             { username: name, sessionId: sessionId },
             (error, insertedSession) => {
               res.cookie("sessionId", sessionId);
-              res.send(JSON.stringify({ success: true }));
+              res.send(JSON.stringify({ success: true, sessionId: sessionId }));
               //return;
             }
           );

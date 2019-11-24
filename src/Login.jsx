@@ -36,7 +36,8 @@ class Login extends Component {
     if (body.success) {
       // 9
       this.setState({ username: name }); // 9
-      this.props.dispatch({ type: "set-username", name: name });
+      console.log("sessionId", body.sessionId)
+      this.props.dispatch({ type: "set-username", name: name, sessionId: body.sessionId });
       alert("Login Success!");
       return;
     } // 9
@@ -45,23 +46,7 @@ class Login extends Component {
     this.setState({ passwordInput: "" });
   };
 
-  componentDidMount = async () => {
-    let response = await fetch("/check-login", {
-      method: "POST",
-      credentials: "include"
-    });
-    let responseBody = await response.text();
-    console.log("responseBody from login", responseBody);
-    let body = JSON.parse(responseBody);
-    console.log("parsed body", body);
-    if (!body.success) {
-      console.log("cookie fail");
-      return;
-    }
-    this.props.dispatch({
-      type: "signin"
-    });
-  };
+ 
 
   render = () => {
     return (
