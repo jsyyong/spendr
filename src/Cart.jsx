@@ -74,7 +74,11 @@ class unconnectedCart extends Component {
     return (
       <div>
         <div className="nav-bar">
-          <h1>SPENDR</h1>
+          <Link to="/">
+            <button>
+              <h1>SPENDR</h1>
+            </button>
+          </Link>
           <Search />
           <div className="divCart">
             <Link to="/cart">

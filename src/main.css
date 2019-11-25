@@ -193,3 +193,10 @@ input[type="file"] {
   flex-wrap: wrap;
   width: auto;
 }
+.nav-bar button h1 {
+  font-family: Helvetica, sans-serif;
+}
+
+.nav-bar button {
+  margin: 0px;
+}
