@@ -17,6 +17,9 @@ let reducer = (state, action) => {
   if (action.type === "set-products") {
     return { ...state, products: action.products };
   }
+  if (action.type === "set-cartItems") {
+    return { ...state, cartItems: action.cartItems };
+  }
   if (action.type === "query") {
     return { ...state, searchQuery: action.q };
   }
@@ -37,6 +40,7 @@ let store = createStore(
     loggedIn: false,
     searchResults: [],
     products: [],
+    cartItems: [],
     sessionId: ""
   },
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
