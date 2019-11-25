@@ -53,7 +53,7 @@ class unconnectedCollection extends Component {
     // await this.reloadCart();
   };
   render = () => {
-    let halfWay = Math.floor(this.props.products.length / 2);
+    let halfWay = Math.ceil(this.props.products.length / 2);
     return (
       <div
         style={{ gridTemplateColumns: `repeat(${halfWay}, auto)` }}
@@ -62,7 +62,7 @@ class unconnectedCollection extends Component {
         {this.props.products.map(product => (
           <div className="eachCollectionProduct" key={"f" + product._id}>
             <Link to={"/detail/" + product._id}>
-              <img height="170px" src={product.imgPath} />
+              <img height="150px" src={product.imgPath} />
             </Link>
           </div>
         ))}

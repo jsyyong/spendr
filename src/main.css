@@ -193,6 +193,10 @@ input[type="file"] {
   height: 99%;
 }
 
+.eachCollectionProduct img {
+  padding: 0px 15px;
+}
+
 .userHpProducts {
   display: flex;
   flex-wrap: wrap;
