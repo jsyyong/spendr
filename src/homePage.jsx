@@ -58,7 +58,7 @@ class unconnectedHomePage extends Component {
         {this.props.products.map(product => (
           <div className="eachHpProduct" key={"f" + product._id}>
             <Link to={"/detail/" + product._id}>
-              <img height="600px" src={product.imgPath} />
+              <img height="590px" src={product.imgPath} />
             </Link>
           </div>
         ))}

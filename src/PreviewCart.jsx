@@ -68,10 +68,9 @@ class unconnectedPreviewCart extends Component {
 
   render() {
     console.log("cartItems", this.props.cartItems);
-    let full = this.props.products.length;
     return (
       <div className="containerPreviewCart">
-        <div style={{ display: "flex" }} className="flex-products">
+        <div className="flex-products">
           {!this.props.cartItems && <div>Bag is empty :)</div>}
           {this.props.cartItems ? (
             this.props.cartItems.map(product => (

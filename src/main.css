@@ -141,9 +141,12 @@ input[type="file"] {
 .containerHp {
   display: grid;
   grid-template-columns: repeat(16, 1fr);
-  grid-template-rows: repeat(4, 1fr);
+  grid-template-rows: repeat(16, 1fr);
   grid-column-gap: 0px;
   grid-row-gap: 0px;
+  height: 100vh;
+  /* position: relative;
+  top: -100vh; */
 }
 
 .hpProducts {
@@ -153,7 +156,7 @@ input[type="file"] {
   width: auto;
   padding: 0px;
   margin: 0px;
-  grid-area: 1 / 1 / 5 / 9;
+  grid-area: 1 / 1 / 17 / 9;
   overflow: scroll;
   height: 100vh;
 }
@@ -166,7 +169,7 @@ input[type="file"] {
   flex-direction: column;
   height: 50vh;
   overflow-x: scroll;
-  grid-area: 1 / 9 / 3 / 17;
+  grid-area: 1 / 9 / 9 / 17;
   /* width: 100vh; */
 }
 
@@ -181,6 +184,10 @@ input[type="file"] {
   text-align: center;
   width: 49.4%;
   height: 610px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 2;
 }
 .flex-collection {
 }
@@ -191,6 +198,7 @@ input[type="file"] {
   justify-content: center;
   width: 100%;
   height: 99%;
+  z-index: 2;
 }
 
 .eachCollectionProduct img {
@@ -251,7 +259,7 @@ input[type="file"] {
   flex-direction: column;
   height: 50vh;
   overflow-x: scroll;
-  grid-area: 3 / 9 / 5 / 17;
+  grid-area: 9 / 9 / 17 / 17;
   /* flex-direction: row; */
   width: auto;
 }
@@ -261,8 +269,10 @@ input[type="file"] {
   display: flex;
   justify-content: center;
   align-items: flex-end;
+  z-index: 2;
 }
 .flex-products {
+  display: flex;
 }
 .nav-bar button h1 {
   font-family: Helvetica, sans-serif;
@@ -270,4 +280,39 @@ input[type="file"] {
 
 .nav-bar button {
   margin: 0px;
+}
+
+/* .containerTitles {
+  position: relative;
+  top: 0px;
+  display: grid;
+  grid-template-columns: repeat(16, 1fr);
+  grid-template-rows: repeat(16, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  height: 100vh;
+  z-index: 3;
+  display: none;
+} */
+
+#New-arrivals {
+  grid-area: 1 / 1 / 2 / 2;
+  z-index: 99;
+  margin: 5px;
+}
+
+#Collection {
+  grid-area: 1 / 9 / 2 / 10;
+  z-index: 99;
+  margin: 5px;
+}
+
+#Cart {
+  grid-area: 9 / 9 / 10 / 10;
+  z-index: 99;
+  margin: 5px;
+}
+
+.containerAll {
+  height: 100vh;
 }
