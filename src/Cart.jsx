@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import DeleteSingleCart from './DeleteSingleCart.jsx'
+import DeleteSingleCart from "./DeleteSingleCart.jsx";
+import { Link } from "react-router-dom";
 
 class unconnectedCart extends Component {
   /*reloadCart = async () => {
@@ -49,9 +50,11 @@ class unconnectedCart extends Component {
   };
 
   reloadCart = async () => {
-    let username = this.props.username
-    console.log("the username from reloadCart", username)
-    let response = await fetch("/cart?username=" + username, { method: "POST" });
+    let username = this.props.username;
+    console.log("the username from reloadCart", username);
+    let response = await fetch("/cart?username=" + username, {
+      method: "POST"
+    });
     let body = await response.text();
     body = JSON.parse(body);
     console.log("/cart response", body);
@@ -61,11 +64,11 @@ class unconnectedCart extends Component {
   componentDidMount = async () => {
     this.reload();
     await this.reloadState();
-    await this.reloadCart()
+    await this.reloadCart();
   };
 
   render() {
-    console.log(this.props.cartItems);
+    console.log("cartItems", this.props.cartItems);
     return (
       <div>
         <h1>Shopping Bag</h1>
@@ -73,9 +76,21 @@ class unconnectedCart extends Component {
           {!this.props.cartItems && <div>Bag is empty :)</div>}
           {this.props.cartItems ? (
             this.props.cartItems.map(product => (
-              <li>
-                {product.brand} {product.size} ${product.price} {<DeleteSingleCart product={product} reload={this.reload} reloadCart={this.reloadCart} />}
-              </li>
+              <div>
+                <Link to={"/detail/" + product.id}>
+                  <img height="600px" src={product.imgPath} />
+                </Link>
+                <li>
+                  {product.brand} {product.size} ${product.price}{" "}
+                  {
+                    <DeleteSingleCart
+                      product={product}
+                      reload={this.reload}
+                      reloadCart={this.reloadCart}
+                    />
+                  }
+                </li>
+              </div>
             ))
           ) : (
             <div></div>
@@ -87,7 +102,11 @@ class unconnectedCart extends Component {
 }
 
 let mapStateToProps = state => {
-  return { cartItems: state.cartItems, sessionId: state.sessionId, username: state.username };
+  return {
+    cartItems: state.cartItems,
+    sessionId: state.sessionId,
+    username: state.username
+  };
 };
 let Cart = connect(mapStateToProps)(unconnectedCart);
 export default Cart;
