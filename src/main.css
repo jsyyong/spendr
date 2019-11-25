@@ -187,9 +187,9 @@ input[type="file"] {
 .eachCollectionProduct {
   border: 1px solid black;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
-  width: 120px;
+  width: 100%;
   height: 99%;
 }
 
