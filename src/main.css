@@ -188,7 +188,7 @@ input[type="file"] {
   color: white; */
 }
 
-.flex-seller-products {
+.flex-products {
   display: flex;
   flex-wrap: wrap;
   width: auto;
