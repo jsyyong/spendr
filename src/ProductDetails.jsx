@@ -9,7 +9,9 @@ class unconnectedProductDetails extends Component {
       product: this.props.product
     };
   }
-  // purchaseHandler()
+  purchaseHandler = () => {
+    alert("Congratulation! now " + this.props.product.brand + " is yours!");
+  };
   cartHandler = async event => {
     let sessionId = this.props.sessionId;
     console.log("current sessionnId", sessionId);

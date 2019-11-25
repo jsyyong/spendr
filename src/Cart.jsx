@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import Search from "./Search.jsx";
+import Logout from "./Logout.jsx";
 import DeleteSingleCart from "./DeleteSingleCart.jsx";
 import { Link } from "react-router-dom";
 
@@ -71,7 +73,21 @@ class unconnectedCart extends Component {
     console.log("cartItems", this.props.cartItems);
     return (
       <div>
-        <h1>Shopping Bag</h1>
+        <div className="nav-bar">
+          <h1>SPENDR</h1>
+          <Search />
+          <div className="divCart">
+            <Link to="/cart">
+              <button>Cart</button>
+            </Link>
+          </div>
+          <div className="divSignUpButton">
+            <Logout />
+          </div>
+          <div className="divLoginButton">
+            <button>{this.props.username}</button>
+          </div>
+        </div>
         <ul>
           {!this.props.cartItems && <div>Bag is empty :)</div>}
           {this.props.cartItems ? (

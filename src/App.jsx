@@ -25,9 +25,7 @@ class unconnectedApp extends Component {
     }
     return (
       <Link to="/signUpLogin">
-        <button className="loginButton">
-          Welcome, {this.props.username}!!{" "}
-        </button>
+        <button className="loginButton">{this.props.username}</button>
       </Link>
     );
   };
@@ -133,10 +131,14 @@ class unconnectedApp extends Component {
           <div className="nav-bar">
             <h1>SPENDR</h1>
             <Search />
-            <Link to="/cart">Shopping bag</Link>
+            <div className="divCart">
+              <Link to="/cart">
+                <button>Cart</button>
+              </Link>
+            </div>
             <div className="divSignUpButton">
               <Link to="/signUpLogin">
-                <button className="signUpButton">SignUp</button>
+                <button>SignUp</button>
               </Link>
             </div>
             <div className="divLoginButton">
