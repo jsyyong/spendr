@@ -15,16 +15,22 @@ import Cart from "./Cart.jsx";
 
 class unconnectedApp extends Component {
   loginOrWelcome = () => {
-    console.log("current user", this.props.username)
-    if (this.props.username === ''){
-      return (<Link to="/signUpLogin">
-      <button className="loginButton">Login</button>
-    </Link>)
+    console.log("current user", this.props.username);
+    if (this.props.username === "") {
+      return (
+        <Link to="/signUpLogin">
+          <button className="loginButton">Login</button>
+        </Link>
+      );
     }
-    return(<Link to="/signUpLogin">
-    <button className="loginButton">Welcome, {this.props.username}!! </button>
-  </Link>)
-  }
+    return (
+      <Link to="/signUpLogin">
+        <button className="loginButton">
+          Welcome, {this.props.username}!!{" "}
+        </button>
+      </Link>
+    );
+  };
   // 1
   constructor() {
     // 2
@@ -55,7 +61,7 @@ class unconnectedApp extends Component {
   };
   renderSearchResults = () => {
     console.log("inside render search results");
-    if (/*this.props.username === "" && */this.props.loggedIn === false) {
+    if (/*this.props.username === "" && */ this.props.loggedIn === false) {
       return (
         <div>
           <div className="nav-bar">
@@ -121,8 +127,7 @@ class unconnectedApp extends Component {
     );
   };
   renderHomeScreen = () => {
-    
-    if (/*this.props.username === "" && */this.props.loggedIn === false) {
+    if (/*this.props.username === "" && */ this.props.loggedIn === false) {
       return (
         <div>
           <div className="nav-bar">
@@ -130,13 +135,12 @@ class unconnectedApp extends Component {
             <Search />
             <Link to="/cart">Shopping bag</Link>
             <div className="divSignUpButton">
-              
               <Link to="/signUpLogin">
                 <button className="signUpButton">SignUp</button>
               </Link>
             </div>
             <div className="divLoginButton">
-            {this.loginOrWelcome()}
+              {this.loginOrWelcome()}
               {/*<Link to="/signUpLogin">
                 <button className="loginButton">Login</button>
       </Link>*/}
