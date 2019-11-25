@@ -166,7 +166,7 @@ class unconnectedApp extends Component {
         </div>
       );
     } else {
-      return <UserHomePage username={this.props.username} />;
+      // return <UserHomePage username={this.props.username} />;
     }
   };
 
