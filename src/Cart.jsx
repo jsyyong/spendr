@@ -81,7 +81,11 @@ class unconnectedCart extends Component {
     return (
       <div>
         <div className="nav-bar">
-          <h1>SPENDR</h1>
+          <Link to="/">
+            <button>
+              <h1>SPENDR</h1>
+            </button>
+          </Link>
           <Search />
           <div className="divCart">
             <Link to="/cart">
@@ -95,30 +99,29 @@ class unconnectedCart extends Component {
             <button>{this.props.username}</button>
           </div>
         </div>
-        <ul>
+        <div className="flex-products">
           {!this.props.cartItems && <div>Bag is empty :)</div>}
           {this.props.cartItems ? (
             this.props.cartItems.map(product => (
-              <div>
+              <div key={product.id}>
                 <Link to={"/detail/" + product.id}>
                   <img height="600px" src={product.imgPath} />
                 </Link>
-                <li>
-                  {product.brand} {product.size} ${product.price}{" "}
-                  {
-                    <DeleteSingleCart
-                      product={product}
-                      reload={this.reload}
-                      reloadCart={this.reloadCart}
-                    />
-                  }
-                </li>
+                <p>
+                  {product.brand} {product.size} ${product.price}
+                </p>
+
+                <DeleteSingleCart
+                  product={product}
+                  reload={this.reload}
+                  reloadCart={this.reloadCart}
+                />
               </div>
             ))
           ) : (
             <div></div>
           )}
-        </ul>
+        </div>
         <br />
         <button onClick={this.purchaseHandler}>Purchase</button>
       </div>

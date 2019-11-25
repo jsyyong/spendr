@@ -35,7 +35,7 @@ class unconnectedSeller extends Component {
             <button>{this.props.username}</button>
           </div>
         </div>
-        <div className="flex-seller-products">
+        <div className="flex-products">
           {this.props.sellerProduct.map(product => (
             <div key={product._id}>
               <Link to={"/detail/" + product._id}>

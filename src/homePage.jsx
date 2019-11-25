@@ -55,8 +55,8 @@ class unconnectedHomePage extends Component {
   render = () => {
     return (
       <div className="hpProducts">
-        {this.props.products.reverse().map(product => (
-          <div key={"f" + product._id}>
+        {this.props.products.map(product => (
+          <div className="eachHpProduct" key={"f" + product._id}>
             <Link to={"/detail/" + product._id}>
               <img height="600px" src={product.imgPath} />
             </Link>

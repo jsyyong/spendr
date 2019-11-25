@@ -12,6 +12,7 @@ import SignUpLogin from "./SignUpLogin.jsx";
 import SearchResults from "./SearchResults.jsx";
 import Seller from "./Seller.jsx";
 import Cart from "./Cart.jsx";
+import Collection from "./Collection.jsx";
 
 class unconnectedApp extends Component {
   loginOrWelcome = () => {
@@ -24,9 +25,11 @@ class unconnectedApp extends Component {
       );
     }
     return (
-      <Link to="/signUpLogin">
-        <button className="loginButton">{this.props.username}</button>
-      </Link>
+      <div>
+        <Link to="/signUpLogin">
+          <button className="loginButton">{this.props.username}</button>
+        </Link>
+      </div>
     );
   };
   // 1
@@ -63,7 +66,11 @@ class unconnectedApp extends Component {
       return (
         <div>
           <div className="nav-bar">
-            <h1>SPENDR</h1>
+            <Link to="/">
+              <button>
+                <h1>SPENDR</h1>
+              </button>
+            </Link>
             <Search />
             <div className="divSignUpButton">
               <Link to="/signUpLogin">
@@ -105,7 +112,11 @@ class unconnectedApp extends Component {
     return (
       <div>
         <div className="nav-bar">
-          <h1>SPENDR</h1>
+          <Link to="/">
+            <button>
+              <h1>SPENDR</h1>
+            </button>
+          </Link>
           <Search />
           <div className="divSignUpButton">
             <Link to="/signUpLogin">
@@ -129,7 +140,11 @@ class unconnectedApp extends Component {
       return (
         <div>
           <div className="nav-bar">
-            <h1>SPENDR</h1>
+            <Link to="/">
+              <button>
+                <h1>SPENDR</h1>
+              </button>
+            </Link>
             <Search />
             <div className="divCart">
               <Link to="/cart">
@@ -148,11 +163,14 @@ class unconnectedApp extends Component {
       </Link>*/}
             </div>
           </div>
-          <HomePage />
+          <div className="containerHp">
+            <HomePage />
+            <Collection />
+          </div>
         </div>
       );
     } else {
-      return <UserHomePage username={this.props.username} />;
+      // return <UserHomePage username={this.props.username} />;
     }
   };
 
