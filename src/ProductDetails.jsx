@@ -9,7 +9,9 @@ class unconnectedProductDetails extends Component {
       product: this.props.product
     };
   }
-  // purchaseHandler()
+  purchaseHandler = () => {
+    alert("Congratulation! now " + this.props.product.brand + " is yours!");
+  };
   cartHandler = async event => {
     let sessionId = this.props.sessionId;
     console.log("current sessionnId", sessionId);
@@ -42,9 +44,15 @@ class unconnectedProductDetails extends Component {
       return;
     }
     console.log("cart add success! sending dispatch");
-    /*this.props.dispatch({
-      type: "add-cart",
-      data: this.props.product*/
+    if (this.props.product.stock === 0) {
+      alert("SOLD OUT");
+    } else {
+      alert(
+        this.props.product.brand +
+          this.props.product.productName +
+          " is added to your shopping bag"
+      );
+    }
   };
   // messageHandler()
 
@@ -57,6 +65,7 @@ class unconnectedProductDetails extends Component {
         <div className="ProductDetailsInfo">
           <h2>{this.props.product.brand}</h2>
           <h4>{this.props.product.productName}</h4>
+
           <p>{this.props.product.description}</p>
           <p>{"Size: " + this.props.product.size}</p>
           <p>{"$" + this.props.product.price}</p>

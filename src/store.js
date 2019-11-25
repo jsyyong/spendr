@@ -2,7 +2,12 @@ import { createStore } from "redux";
 
 let reducer = (state, action) => {
   if (action.type === "set-username") {
-    return { ...state, username: action.name, loggedIn: action.loggedIn, sessionId: action.sessionId };
+    return {
+      ...state,
+      username: action.name,
+      loggedIn: action.loggedIn,
+      sessionId: action.sessionId
+    };
   }
   if (action.type === "add-cart") {
     let cartItems = state.cartItems
@@ -27,7 +32,7 @@ let reducer = (state, action) => {
     return { ...state, searchResults: action.searchResults };
   }
   if (action.type === "logout") {
-    return { ...state, username: "", sessionId: ""};
+    return { ...state, username: "", sessionId: "" };
   }
   return state;
 };

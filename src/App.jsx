@@ -42,6 +42,7 @@ class unconnectedApp extends Component {
       username: undefined // 2
     }; // 2
   } // 2
+
   usernameChange = evt => {
     // 4
     this.setState({ usernameInput: evt.target.value }); // 4

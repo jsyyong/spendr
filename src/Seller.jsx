@@ -14,6 +14,9 @@ class unconnectedSeller extends Component {
   }
 
   render = () => {
+    let styleWidth = {
+      width: "200px"
+    };
     console.log(this.props.sellerProduct);
     return (
       <div>

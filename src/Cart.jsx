@@ -19,6 +19,13 @@ class unconnectedCart extends Component {
   componentDidMount = () => {
     this.reloadCart()
   };*/
+  purchaseHandler = () => {
+    if (this.props.cartItems.length != 0) {
+      alert("Congratulation! ");
+    } else {
+      alert("Sorry. There is no item in the cart.");
+    }
+  };
 
   reload = async () => {
     //let name = this.state.username;
@@ -115,6 +122,8 @@ class unconnectedCart extends Component {
             <div></div>
           )}
         </div>
+        <br />
+        <button onClick={this.purchaseHandler}>Purchase</button>
       </div>
     );
   }
