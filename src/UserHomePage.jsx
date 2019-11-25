@@ -6,6 +6,7 @@ import DeleteSingle from "./DeleteSingle.jsx";
 import Logout from "./Logout.jsx";
 import Search from "./Search.jsx";
 import Select from "react-select";
+import ReviewForm from "./ReviewForm.jsx";
 // import Select from "react-styled-select";
 
 const options = [
@@ -170,6 +171,8 @@ class unconnectedUserHomePage extends Component {
             ))}
           </div>
         </div>
+        <h2>Write a review</h2>
+        <ReviewForm />
       </div>
     );
   };
