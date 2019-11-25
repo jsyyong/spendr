@@ -14,6 +14,21 @@ import Seller from "./Seller.jsx";
 import Cart from "./Cart.jsx";
 
 class unconnectedApp extends Component {
+  loginOrWelcome = () => {
+    console.log("current user", this.props.username);
+    if (this.props.username === "") {
+      return (
+        <Link to="/signUpLogin">
+          <button className="loginButton">Login</button>
+        </Link>
+      );
+    }
+    return (
+      <Link to="/signUpLogin">
+        <button className="loginButton">{this.props.username}</button>
+      </Link>
+    );
+  };
   // 1
   constructor() {
     // 2
@@ -43,7 +58,7 @@ class unconnectedApp extends Component {
   };
   renderSearchResults = () => {
     console.log("inside render search results");
-    if (this.props.username === "") {
+    if (/*this.props.username === "" && */ this.props.loggedIn === false) {
       return (
         <div>
           <div className="nav-bar">
@@ -55,9 +70,10 @@ class unconnectedApp extends Component {
               </Link>
             </div>
             <div className="divLoginButton">
-              <Link to="/signUpLogin">
+              {this.loginOrWelcome()}
+              {/*<Link to="/signUpLogin">
                 <button className="loginButton">Login</button>
-              </Link>
+      </Link>*/}
             </div>
           </div>
           <SearchResults />
@@ -108,7 +124,7 @@ class unconnectedApp extends Component {
     );
   };
   renderHomeScreen = () => {
-    if (this.props.username === "") {
+    if (/*this.props.username === "" && */ this.props.loggedIn === false) {
       return (
         <div>
           <div className="nav-bar">
@@ -125,9 +141,10 @@ class unconnectedApp extends Component {
               </Link>
             </div>
             <div className="divLoginButton">
-              <Link to="/signUpLogin">
-                <button>Login</button>
-              </Link>
+              {this.loginOrWelcome()}
+              {/*<Link to="/signUpLogin">
+                <button className="loginButton">Login</button>
+      </Link>*/}
             </div>
           </div>
           <HomePage />
@@ -165,7 +182,8 @@ class unconnectedApp extends Component {
 let mapStateToProps = st => {
   return {
     username: st.username,
-    products: st.products
+    products: st.products,
+    loggedIn: st.loggedIn
   };
 };
 let App = connect(mapStateToProps)(unconnectedApp);

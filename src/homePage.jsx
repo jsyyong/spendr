@@ -12,8 +12,32 @@ class unconnectedHomePage extends Component {
     console.log("/product response", body);
     this.props.dispatch({ type: "set-products", products: body });
   };
+
+  reloadState = async () => {
+    let response = await fetch("/check-login", {
+      method: "POST",
+      credentials: "include"
+    });
+    let responseBody = await response.text();
+    console.log("responseBody from login", responseBody);
+    let body = JSON.parse(responseBody);
+    console.log("parsed body", body);
+    if (!body.success) {
+      console.log("cookie fail");
+      return;
+    }
+    console.log("cookie dispatchinng");
+    this.props.dispatch({
+      type: "set-username",
+      name: body.username,
+      sessionId: body.sessionId,
+      loggedIn: false
+    });
+  };
+
   componentDidMount = () => {
     this.reload();
+    this.reloadState();
   };
   render = () => {
     return (

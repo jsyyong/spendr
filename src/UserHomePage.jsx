@@ -1,10 +1,22 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import Products from "./Products.jsx";
+// import Products from "./Products.jsx";
 import { Link } from "react-router-dom";
 import DeleteSingle from "./DeleteSingle.jsx";
 import Logout from "./Logout.jsx";
 import Search from "./Search.jsx";
+import Select from "react-select";
+// import Select from "react-styled-select";
+
+
+const options = [
+  { value: "pants", label: "Pants" },
+  { value: "shirts", label: "Shirt" },
+  { value: "jackets", label: "Jackets" },
+  { value: "sweaters", label: "Sweaters" },
+  { value: "tops", label: "Tops" },
+  { value: "hats", label: "Hats" }
+];
 
 class unconnectedUserHomePage extends Component {
   constructor(props) {
@@ -32,7 +44,6 @@ class unconnectedUserHomePage extends Component {
       this.setState({ [field]: event.target.value });
     };
   };
-  deleteProduct = () => {};
 
   reload = async () => {
     let name = this.state.username;
@@ -90,17 +101,7 @@ class unconnectedUserHomePage extends Component {
               <input type="file" onChange={this.fileChangeHandler} required />
               Image
             </label>
-            <div className="custom-select">
-              <select>
-                <option value="pants">Pants</option>
-                <option value="shirts">Shirt</option>
-                <option value="jackets">Jackets</option>
-                <option value="sweaters">Sweaters</option>
-                <option value="t-shirts">T-shirt</option>
-                <option value="shoes">Shoes</option>
-                <option value="hats">Hats</option>
-              </select>
-            </div>
+            <Select options={options} className="selectBorderRadius" />
 
             <input
               className="userInput"
