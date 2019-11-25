@@ -12,6 +12,7 @@ import SignUpLogin from "./SignUpLogin.jsx";
 import SearchResults from "./SearchResults.jsx";
 import Seller from "./Seller.jsx";
 import Cart from "./Cart.jsx";
+import Collection from "./Collection.jsx";
 
 class unconnectedApp extends Component {
   loginOrWelcome = () => {
@@ -162,7 +163,10 @@ class unconnectedApp extends Component {
       </Link>*/}
             </div>
           </div>
-          <HomePage />
+          <div className="containerHp">
+            <HomePage />
+            <Collection />
+          </div>
         </div>
       );
     } else {
