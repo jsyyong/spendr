@@ -8,7 +8,6 @@ import Search from "./Search.jsx";
 import Select from "react-select";
 // import Select from "react-styled-select";
 
-
 const options = [
   { value: "pants", label: "Pants" },
   { value: "shirts", label: "Shirt" },
@@ -75,6 +74,12 @@ class unconnectedUserHomePage extends Component {
     this.setState({ size: "" });
     this.setState({ price: "" });
     this.setState({ stock: "" });
+    let response = await fetch("/product", { method: "POST" });
+    let body = await response.text();
+    body = JSON.parse(body);
+    console.log("/product response", body);
+    this.props.dispatch({ type: "set-products", products: body });
+
     this.reload();
   };
   render = () => {
