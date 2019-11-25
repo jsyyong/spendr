@@ -242,10 +242,27 @@ input[type="file"] {
   color: white; */
 }
 
-.flex-products {
-  display: flex;
+.containerPreviewCart {
+  position: relative;
+  left: -5px;
+  align-items: center;
+  display: grid;
   flex-wrap: wrap;
+  flex-direction: column;
+  height: 50vh;
+  overflow-x: scroll;
+  grid-area: 3 / 9 / 5 / 17;
+  /* flex-direction: row; */
   width: auto;
+}
+.eachPreviewCArt {
+  border: 1px solid black;
+  width: 175px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+.flex-products {
 }
 .nav-bar button h1 {
   font-family: Helvetica, sans-serif;

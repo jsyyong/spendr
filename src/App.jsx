@@ -13,6 +13,7 @@ import SearchResults from "./SearchResults.jsx";
 import Seller from "./Seller.jsx";
 import Cart from "./Cart.jsx";
 import Collection from "./Collection.jsx";
+import PreviewCart from "./PreviewCart.jsx";
 
 class unconnectedApp extends Component {
   loginOrWelcome = () => {
@@ -164,6 +165,7 @@ class unconnectedApp extends Component {
             </div>
           </div>
           <div className="containerHp">
+            <PreviewCart />
             <HomePage />
             <Collection />
           </div>
