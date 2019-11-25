@@ -63,6 +63,46 @@ app.post("/check-login", upload.none(), (req, res) => {
   });
 });
 
+//cart endpoint
+app.post("/cart", upload.none(), (req, res) => {
+  console.log("request to /cart");
+  // let name = req.query.username;
+  // console.log("query username:", name);
+  console.log("querystring", req.query);
+  dbo
+    .collection("cart")
+    .find(req.query) //sort by everything the seller is selling. later on we will sort his wishlist and purchases
+    // .find({})
+    .toArray((err, cartItems) => {
+      if (err) {
+        console.log("error", err);
+        res.send(JSON.stringify({ success: false }));
+        return;
+      }
+      console.log("res.sending cartItems")
+      res.send(JSON.stringify(cartItems));
+    });
+});
+
+//addToCart endpoint
+app.post("/addToCart", upload.none(), (req, res) => {
+  let sessionId = req.body.sessionId
+  console.log("session id from /addToCart", sessionId);
+  dbo.collection("sessions").findOne({ sessionId: sessionId }, (err, user) => {
+    if (err || user === null) {
+      console.log("/addToCart failed");
+      res.send(JSON.stringify({ success: false }));
+      return;
+    }
+    console.log("adding the product to user's session");
+    dbo.collection("cart").insertOne({sessionId: sessionId, brand: req.body.brand, id: req.body.id, username: req.body.username, description: req.body.description, imgPath: req.body.imgPath, price: req.body.price, productName: req.body.productName, seller: req.body.seller, size: req.body.size, stock: req.body.stock})
+    res.send(JSON.stringify({ success: true }));
+    
+  });
+  return
+});
+
+//deleteSingle endpoint
 app.post("/deleteSingle", upload.none(), (req, res) => {
   console.log("inside /deleteSingle");
   let imgPath = req.query.imgPath;
@@ -72,6 +112,21 @@ app.post("/deleteSingle", upload.none(), (req, res) => {
       console.log("/deleteSingle fail");
       res.send(JSON.stringify({ success: false }));
     }
+    res.send(JSON.stringify({ success: true }));
+  });
+});
+
+//deleteSingleCart endpoint
+app.post("/deleteSingleCart", upload.none(), (req, res) => {
+  console.log("inside /deleteSingleCart");
+  let _id = req.query._id;
+  console.log("req query", _id);
+  dbo.collection("cart").remove({ _id: ObjectID(_id) }, err => {
+    if (err) {
+      console.log("/deleteSingleCart fail");
+      res.send(JSON.stringify({ success: false }));
+    }
+    console.log("cart deletion success!!")
     res.send(JSON.stringify({ success: true }));
   });
 });
