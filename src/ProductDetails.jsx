@@ -10,7 +10,14 @@ class unconnectedProductDetails extends Component {
     };
   }
   purchaseHandler = () => {
-    alert("Congratulation! now " + this.props.product.brand + " is yours!");
+    if (this.props.product.stock === 0) {
+      alert("Sorry, this item is currently out of stock");
+    } else {
+      let data = this.props.product;
+      this.props.dispatch({ type: "add-cart", data });
+
+      alert("Congratulation! now " + this.props.product.brand + " is yours!");
+    }
   };
   cartHandler = async event => {
     let sessionId = this.props.sessionId;
@@ -44,13 +51,15 @@ class unconnectedProductDetails extends Component {
       return;
     }
     console.log("cart add success! sending dispatch");
+
     if (this.props.product.stock === 0) {
       alert("SOLD OUT");
     } else {
+      let data = this.props.product;
+      this.props.dispatch({ type: "add-cart", data });
+      console.log(data);
       alert(
-        this.props.product.brand +
-          this.props.product.productName +
-          " is added to your shopping bag"
+        data.brand + " " + data.productName + " is added to your shopping bag"
       );
     }
   };

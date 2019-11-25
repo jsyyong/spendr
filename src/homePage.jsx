@@ -36,9 +36,11 @@ class unconnectedHomePage extends Component {
   };
 
   reloadCart = async () => {
-    let username = this.props.username
-    console.log("the username from reloadCart", username)
-    let response = await fetch("/cart?username=" + username, { method: "POST" });
+    let username = this.props.username;
+    console.log("the username from reloadCart", username);
+    let response = await fetch("/cart?username=" + username, {
+      method: "POST"
+    });
     let body = await response.text();
     body = JSON.parse(body);
     console.log("/cart response", body);
@@ -48,7 +50,7 @@ class unconnectedHomePage extends Component {
   componentDidMount = async () => {
     this.reload();
     await this.reloadState();
-    await this.reloadCart()
+    await this.reloadCart();
   };
   render = () => {
     return (
@@ -66,7 +68,7 @@ class unconnectedHomePage extends Component {
   };
 }
 let mapStateToProps = state => {
-  return { products: state.products, username: state.username};
+  return { products: state.products, username: state.username };
 };
 let HomePage = connect(mapStateToProps)(unconnectedHomePage);
 export default HomePage;
