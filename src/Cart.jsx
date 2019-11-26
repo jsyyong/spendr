@@ -4,6 +4,7 @@ import Search from "./Search.jsx";
 import Logout from "./Logout.jsx";
 import DeleteSingleCart from "./DeleteSingleCart.jsx";
 import { Link } from "react-router-dom";
+import StripeCheckout from "react-stripe-checkout";
 
 class unconnectedCart extends Component {
   /*reloadCart = async () => {
@@ -19,12 +20,24 @@ class unconnectedCart extends Component {
   componentDidMount = () => {
     this.reloadCart()
   };*/
-  purchaseHandler = () => {
-    if (this.props.cartItems.length != 0) {
-      alert("Congratulation! ");
-    } else {
-      alert("Sorry. There is no item in the cart.");
-    }
+
+  // purchaseHandler = () => {
+  //   if (this.props.cartItems.length != 0) {
+  //     alert("Congratulation! ");
+  //   } else {
+  //     alert("Sorry. There is no item in the cart.");
+  //   }
+  // };
+
+  onToken = token => {
+    fetch("/save-stripe-token", {
+      method: "POST",
+      body: JSON.stringify(token)
+    }).then(response => {
+      response.json().then(data => {
+        alert(`We are in business, ${data.email}`);
+      });
+    });
   };
 
   reload = async () => {
@@ -123,7 +136,41 @@ class unconnectedCart extends Component {
           )}
         </div>
         <br />
-        <button onClick={this.purchaseHandler}>Purchase</button>
+        <StripeCheckout
+          name="SPENDR" // the pop-in header title
+          description="Big Data Stuff" // the pop-in header subtitle
+          image="" // the pop-in header image (default none)
+          ComponentClass="div"
+          label="Buy the Thing" // text inside the Stripe button
+          panelLabel="Give Money" // prepended to the amount in the bottom pay button
+          amount={1000000} // cents
+          currency="USD"
+          stripeKey="pk_test_L4ufjWYDNiycNY8gPs72WO7q00IpViddwi"
+          locale="en"
+          email="info@vidhub.co"
+          // Note: Enabling either address option will give the user the ability to
+          // fill out both. Addresses are sent as a second parameter in the token callback.
+          shippingAddress
+          billingAddress={false}
+          // Note: enabling both zipCode checks and billing or shipping address will
+          // cause zipCheck to be pulled from billing address (set to shipping if none provided).
+          zipCode={false}
+          alipay // accept Alipay (default false)
+          bitcoin // accept Bitcoins (default false)
+          allowRememberMe // "Remember Me" option (default true)
+          token={this.onToken} // submit callback
+          opened={this.onOpened} // called when the checkout popin is opened (no IE6/7)
+          closed={this.onClosed} // called when the checkout popin is closed (no IE6/7)
+          // Note: `reconfigureOnUpdate` should be set to true IFF, for some reason
+          // you are using multiple stripe keys
+          reconfigureOnUpdate={false}
+          // Note: you can change the event to `onTouchTap`, `onClick`, `onTouchStart`
+          // useful if you're using React-Tap-Event-Plugin
+        >
+          <button className="productDetailsButtons" onClick={this.onToken}>
+            Purchase
+          </button>
+        </StripeCheckout>
       </div>
     );
   }
