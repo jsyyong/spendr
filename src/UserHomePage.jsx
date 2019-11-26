@@ -83,6 +83,24 @@ class unconnectedUserHomePage extends Component {
     this.reload();
   };
   render = () => {
+    const customStyles = {
+      menu: (provided, state) => ({
+        ...provided,
+        color: "#fff",
+        backgroundColor: "#000"
+      })
+
+      // control: (_, { selectProps: { width } }) => ({
+      //   width: width
+      // }),
+
+      // singleValue: (provided, state) => {
+      //   const opacity = state.isDisabled ? 0.5 : 1;
+      //   const transition = "opacity 300ms";
+
+      //   return { ...provided, opacity, transition };
+      // }
+    };
     return (
       <div>
         <div className="nav-bar">
@@ -110,7 +128,7 @@ class unconnectedUserHomePage extends Component {
               <input type="file" onChange={this.fileChangeHandler} required />
               Image
             </label>
-            <Select options={options} className="selectBorderRadius" />
+            <Select options={options} styles={customStyles} />
 
             <input
               className="userInput"

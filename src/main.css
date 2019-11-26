@@ -257,7 +257,7 @@ input[type="file"] {
   display: grid;
   flex-wrap: wrap;
   flex-direction: column;
-  height: 50vh;
+  /* height: 50vh; */
   overflow-x: scroll;
   grid-area: 9 / 9 / 17 / 17;
   /* flex-direction: row; */
@@ -270,6 +270,8 @@ input[type="file"] {
   justify-content: center;
   align-items: flex-end;
   z-index: 2;
+  height: 50vh;
+  width: 200px;
 }
 .flex-products {
   display: flex;
@@ -315,4 +317,12 @@ input[type="file"] {
 
 .containerAll {
   height: 100vh;
+}
+
+.containerSeller {
+  display: grid;
+  grid-template-columns: repeat(16, 1fr);
+  grid-template-rows: repeat(16, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
 }

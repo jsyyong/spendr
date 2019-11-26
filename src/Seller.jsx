@@ -14,14 +14,15 @@ class unconnectedSeller extends Component {
   }
 
   render = () => {
-    let styleWidth = {
-      width: "200px"
-    };
     console.log(this.props.sellerProduct);
     return (
       <div>
         <div className="nav-bar">
-          <h1>SPENDR</h1>
+          <Link to="/">
+            <button>
+              <h1>SPENDR</h1>
+            </button>
+          </Link>
           <Search />
           <div className="divCart">
             <Link to="/cart">
@@ -32,17 +33,21 @@ class unconnectedSeller extends Component {
             <Logout />
           </div>
           <div className="divLoginButton">
-            <button>{this.props.username}</button>
+            <Link to="/signUpLogin">
+              <button className="loginButton">{this.props.username}</button>
+            </Link>
           </div>
         </div>
-        <div className="flex-products">
-          {this.props.sellerProduct.map(product => (
-            <div key={product._id}>
-              <Link to={"/detail/" + product._id}>
-                <img height="600px" src={product.imgPath} />
-              </Link>
-            </div>
-          ))}
+        <div className="containerSeller">
+          <div className="flex-products">
+            {this.props.sellerProduct.map(product => (
+              <div key={product._id}>
+                <Link to={"/detail/" + product._id}>
+                  <img height="600px" src={product.imgPath} />
+                </Link>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     );
