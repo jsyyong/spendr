@@ -1,9 +1,22 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import DeleteForm from "./DeleteForm.jsx";
 import { Link } from "react-router-dom";
 
-class unconnectedHomePage extends Component {
+class unconnectedPreviewCart extends Component {
+  /*reloadCart = async () => {
+    let username = this.props.username
+    console.log("the username from reloadCart", username)
+    let response = await fetch("/cart?username=" + username, { method: "POST" });
+    let body = await response.text();
+    body = JSON.parse(body);
+    console.log("/cart response", body);
+    this.props.dispatch({ type: "set-cartItems", cartItems: body });
+  };
+
+  componentDidMount = () => {
+    this.reloadCart()
+  };*/
+
   reload = async () => {
     //let name = this.state.username;
     let response = await fetch("/product", { method: "POST" });
@@ -52,23 +65,37 @@ class unconnectedHomePage extends Component {
     await this.reloadState();
     await this.reloadCart();
   };
-  render = () => {
+
+  render() {
+    console.log("cartItems", this.props.cartItems);
     return (
-      <div className="hpProducts">
-        {this.props.products.map(product => (
-          <div className="eachHpProduct" key={"f" + product._id}>
-            <Link to={"/detail/" + product._id}>
-              <img height="590px" src={product.imgPath} />
-            </Link>
-          </div>
-        ))}
-        <DeleteForm reload={this.reload} />
+      <div className="containerPreviewCart">
+        <div className="flex-products">
+          {!this.props.cartItems && <div>Bag is empty :)</div>}
+          {this.props.cartItems ? (
+            this.props.cartItems.map(product => (
+              <div className="eachPreviewCArt" key={product.id}>
+                <Link to={"/detail/" + product.id}>
+                  <img height="350px" src={product.imgPath} />
+                </Link>
+              </div>
+            ))
+          ) : (
+            <div></div>
+          )}
+        </div>
       </div>
     );
-  };
+  }
 }
+
 let mapStateToProps = state => {
-  return { products: state.products, username: state.username };
+  return {
+    cartItems: state.cartItems,
+    sessionId: state.sessionId,
+    username: state.username,
+    products: state.products
+  };
 };
-let HomePage = connect(mapStateToProps)(unconnectedHomePage);
-export default HomePage;
+let PreviewCart = connect(mapStateToProps)(unconnectedPreviewCart);
+export default PreviewCart;

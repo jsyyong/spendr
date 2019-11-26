@@ -13,6 +13,7 @@ import SearchResults from "./SearchResults.jsx";
 import Seller from "./Seller.jsx";
 import Cart from "./Cart.jsx";
 import Collection from "./Collection.jsx";
+import PreviewCart from "./PreviewCart.jsx";
 
 class unconnectedApp extends Component {
   loginOrWelcome = () => {
@@ -138,7 +139,7 @@ class unconnectedApp extends Component {
   renderHomeScreen = () => {
     if (/*this.props.username === "" && */ this.props.loggedIn === false) {
       return (
-        <div>
+        <div className="containerAll">
           <div className="nav-bar">
             <Link to="/">
               <button>
@@ -163,7 +164,13 @@ class unconnectedApp extends Component {
       </Link>*/}
             </div>
           </div>
+
+          {/* <div className="containerTitles"></div> */}
           <div className="containerHp">
+            <p id="New-arrivals">New Arrivals</p>
+            <p id="Collection">Collection</p>
+            <p id="Cart">Cart</p>
+            <PreviewCart />
             <HomePage />
             <Collection />
           </div>
