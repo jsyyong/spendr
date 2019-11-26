@@ -263,6 +263,11 @@ input[type="file"] {
   /* flex-direction: row; */
   width: auto;
 }
+
+.containerPreviewCart .flex-products-previewCart {
+  display: flex;
+}
+
 .eachPreviewCArt {
   border: 1px solid black;
   width: 175px;
@@ -327,8 +332,9 @@ input[type="file"] {
   grid-template-rows: repeat(16, 1fr);
   grid-column-gap: 0px;
   grid-row-gap: 0px;
-  height: 100vh;
+  height: 50vh;
   width: 100vw;
+  flex-wrap: wrap;
 }
 .containerSeller .flex-products {
   grid-area: 2 / 1 / 17 / 17;
@@ -367,4 +373,8 @@ input[type="file"] {
   display: flex;
   justify-content: center;
   align-items: flex-end;
+}
+.containerSeller .flex-collection {
+  width: auto;
+  height: 100vh;
 }
