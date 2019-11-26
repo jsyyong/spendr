@@ -20,6 +20,15 @@ class unconnectedDeleteSingleMessage extends Component {
       console.log("deletion fail :(");
       return;
     }
+    //write a reload fetch for message
+    let response2 = await fetch("/cart?username=" + this.props.username, {
+      method: "POST"
+    });
+
+    let body2 = await response2.text();
+    body2 = JSON.parse(body2);
+    console.log("/product response", body2);
+    this.props.dispatch({ type: "set-cartItems", cartItems: body2 });
     console.log("deleteHandler body", body);
     this.props.reload();
     return;
