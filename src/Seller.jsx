@@ -40,9 +40,14 @@ class unconnectedSeller extends Component {
           </div>
         </div>
         <div className="containerSeller">
+          <h2 className="user">{this.props.username + "*****"}</h2>
+          <h2 className="search">Search</h2>
+          <h2 className="sort">Sort</h2>
+          <h2 className="msg">Message Seller</h2>
+
           <div className="flex-products">
             {this.props.sellerProduct.map(product => (
-              <div key={product._id}>
+              <div className="eachProductSeller" key={product._id}>
                 <Link to={"/detail/" + product._id}>
                   <img height="600px" src={product.imgPath} />
                 </Link>

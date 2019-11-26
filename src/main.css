@@ -275,6 +275,8 @@ input[type="file"] {
 }
 .flex-products {
   display: flex;
+  flex-wrap: wrap;
+  width: 100vw;
 }
 .nav-bar button h1 {
   font-family: Helvetica, sans-serif;
@@ -325,4 +327,44 @@ input[type="file"] {
   grid-template-rows: repeat(16, 1fr);
   grid-column-gap: 0px;
   grid-row-gap: 0px;
+  height: 100vh;
+  width: 100vw;
+}
+.containerSeller .flex-products {
+  grid-area: 2 / 1 / 17 / 17;
+}
+
+.containerSeller .user {
+  grid-area: 1 / 1 / 2 / 5;
+  font-weight: 400;
+  margin: 20px 5px;
+  text-align: left;
+}
+.containerSeller .search {
+  grid-area: 1 / 5 / 2 / 9;
+  font-weight: 400;
+  margin: 20px 5px;
+  text-align: left;
+}
+
+.containerSeller .sort {
+  grid-area: 1 / 9 / 2 / 13;
+  font-weight: 400;
+  margin: 20px 5px;
+  text-align: left;
+}
+
+.containerSeller .msg {
+  grid-area: 1 / 13 / 2 / 17;
+  font-weight: 400;
+  margin: 20px 5px;
+  text-align: left;
+}
+
+.eachProductSeller {
+  border: 1px solid black;
+  width: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
 }

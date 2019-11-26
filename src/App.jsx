@@ -14,6 +14,7 @@ import Seller from "./Seller.jsx";
 import Cart from "./Cart.jsx";
 import Collection from "./Collection.jsx";
 import PreviewCart from "./PreviewCart.jsx";
+import Logout from "./Logout.jsx";
 
 class unconnectedApp extends Component {
   loginOrWelcome = () => {
@@ -153,9 +154,7 @@ class unconnectedApp extends Component {
               </Link>
             </div>
             <div className="divSignUpButton">
-              <Link to="/signUpLogin">
-                <button>SignUp</button>
-              </Link>
+              <Logout />
             </div>
             <div className="divLoginButton">
               {this.loginOrWelcome()}
