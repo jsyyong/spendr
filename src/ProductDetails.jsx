@@ -4,13 +4,15 @@ import { Link } from "react-router-dom";
 import ReviewForm from "./ReviewForm.jsx";
 import ReviewMessages from "./ReviewMessages.jsx";
 import StripeCheckout from "react-stripe-checkout";
+import LinkToSeller from "./LinkToSeller.jsx";
 
 class unconnectedProductDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
       product: this.props.product,
-      productId: this.props.productId
+      productId: this.props.productId,
+      seller: this.props.product.seller
     };
   }
   purchaseHandler = () => {
@@ -148,11 +150,12 @@ class unconnectedProductDetails extends Component {
                 <button className="productDetailsButtons">Shopping bag</button>{" "}
               </Link>
               <br />
-              <Link to={"/seller/" + this.props.product.seller}>
+              <LinkToSeller seller={this.state.seller} />
+              {/*<Link to={"/seller/" + this.props.product.seller}>
                 <button className="productDetailsButtons">
                   Listed by{" " + this.props.product.seller}
                 </button>
-              </Link>
+              </Link>*/}
             </div>
           </div>
         </div>

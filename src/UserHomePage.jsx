@@ -52,9 +52,9 @@ class unconnectedUserHomePage extends Component {
     console.log("/product response", body);
     this.setState({ products: body.reverse() });
   };
-  // componentDidMount = () => {
-  //   this.reload();
-  // };
+  componentDidMount = () => {
+    this.reload();
+  };
   submitHandler = async evt => {
     evt.preventDefault();
     let data = new FormData();
@@ -105,7 +105,7 @@ class unconnectedUserHomePage extends Component {
       <div>
         <div className="nav-bar">
           <Link to="/">
-            <button>
+            <button onClick={this.reload}>
               <h1>SPENDR</h1>
             </button>
           </Link>
