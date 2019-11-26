@@ -30,14 +30,18 @@ class unconnectedCart extends Component {
   // };
 
   onToken = token => {
-    fetch("/save-stripe-token", {
-      method: "POST",
-      body: JSON.stringify(token)
-    }).then(response => {
-      response.json().then(data => {
-        alert(`We are in business, ${data.email}`);
+    if (this.props.cartItems.length === 0) {
+      alert("Sorry. There is no item in the cart");
+    } else {
+      fetch("/save-stripe-token", {
+        method: "POST",
+        body: JSON.stringify(token)
+      }).then(response => {
+        response.json().then(data => {
+          alert(`We are in business, ${data.email}`);
+        });
       });
-    });
+    }
   };
 
   reload = async () => {
@@ -139,7 +143,7 @@ class unconnectedCart extends Component {
         <br />
         <StripeCheckout
           name="SPENDR" // the pop-in header title
-          description="Big Data Stuff" // the pop-in header subtitle
+          description="" // the pop-in header subtitle
           image="" // the pop-in header image (default none)
           ComponentClass="div"
           label="Buy the Thing" // text inside the Stripe button

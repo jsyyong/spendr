@@ -15,26 +15,30 @@ class unconnectedProductDetails extends Component {
       seller: this.props.product.seller
     };
   }
-  purchaseHandler = () => {
+  // purchaseHandler = () => {
+  //   if (this.props.product.stock === 0) {
+  //     alert("Sorry, this item is currently out of stock");
+  //   } else {
+  //     let data = this.props.product;
+  //     this.props.dispatch({ type: "add-cart", data });
+
+  //     alert("Congratulation! now " + this.props.product.brand + " is yours!");
+  //   }
+  // };
+
+  onToken = token => {
     if (this.props.product.stock === 0) {
       alert("Sorry, this item is currently out of stock");
     } else {
-      let data = this.props.product;
-      this.props.dispatch({ type: "add-cart", data });
-
-      alert("Congratulation! now " + this.props.product.brand + " is yours!");
-    }
-  };
-
-  onToken = token => {
-    fetch("/save-stripe-token", {
-      method: "POST",
-      body: JSON.stringify(token)
-    }).then(response => {
-      response.json().then(data => {
-        alert(`We are in business, ${data.email}`);
+      fetch("/save-stripe-token", {
+        method: "POST",
+        body: JSON.stringify(token)
+      }).then(response => {
+        response.json().then(data => {
+          alert(`We are in business, ${data.email}`);
+        });
       });
-    });
+    }
   };
   cartHandler = async event => {
     let sessionId = this.props.sessionId;
@@ -100,7 +104,7 @@ class unconnectedProductDetails extends Component {
             <div>
               <StripeCheckout
                 name="SPENDR" // the pop-in header title
-                description="" // the pop-in header subtitle
+                description="Be a SPENDR" // the pop-in header subtitle
                 image="" // the pop-in header image (default none)
                 ComponentClass="div"
                 label="Buy the Thing" // text inside the Stripe button
@@ -118,7 +122,7 @@ class unconnectedProductDetails extends Component {
                 // cause zipCheck to be pulled from billing address (set to shipping if none provided).
                 zipCode={false}
                 alipay // accept Alipay (default false)
-                bitcoin // accept Bitcoins (default false)
+                // accept Bitcoins (default false)
                 allowRememberMe // "Remember Me" option (default true)
                 token={this.onToken} // submit callback
                 opened={this.onOpened} // called when the checkout popin is opened (no IE6/7)
