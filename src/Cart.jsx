@@ -77,7 +77,8 @@ class unconnectedCart extends Component {
   };
 
   render() {
-    console.log("cartItems", this.props.cartItems);
+    console.log("cartItems xoxoxoxoxox======>", this.props.cartItems);
+
     return (
       <div>
         <div className="nav-bar">
@@ -103,7 +104,7 @@ class unconnectedCart extends Component {
           {!this.props.cartItems && <div>Bag is empty :)</div>}
           {this.props.cartItems ? (
             this.props.cartItems.map(product => (
-              <div key={product.id}>
+              <div key={"df" + product.id}>
                 <Link to={"/detail/" + product.id}>
                   <img height="600px" src={product.imgPath} />
                 </Link>
