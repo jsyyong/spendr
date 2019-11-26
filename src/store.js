@@ -10,11 +10,19 @@ let reducer = (state, action) => {
     };
   }
   if (action.type === "add-cart") {
-    let cartItems = state.cartItems
-      ? [...state.cartItems, action.data]
-      : [action.data];
+    if (action.data.stock > 0) {
+      action.data.stock = action.data.stock - 1;
 
-    return { ...state, cartItems };
+      return {
+        ...state,
+        products: [...state.products, action.data],
+        cartItems: state.cartItems
+          ? [...state.cartItems, action.data]
+          : [action.data]
+      };
+    } else {
+      return state;
+    }
   }
   if (action.type === "signin") {
     return { ...state, username: action.username };

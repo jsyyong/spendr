@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import ReviewForm from "./ReviewForm.jsx";
 import ReviewMessages from "./ReviewMessages.jsx";
+import StripeCheckout from "react-stripe-checkout";
 
 class unconnectedProductDetails extends Component {
   constructor(props) {
@@ -13,7 +14,25 @@ class unconnectedProductDetails extends Component {
     };
   }
   purchaseHandler = () => {
-    alert("Congratulation! now " + this.props.product.brand + " is yours!");
+    if (this.props.product.stock === 0) {
+      alert("Sorry, this item is currently out of stock");
+    } else {
+      let data = this.props.product;
+      this.props.dispatch({ type: "add-cart", data });
+
+      alert("Congratulation! now " + this.props.product.brand + " is yours!");
+    }
+  };
+
+  onToken = token => {
+    fetch("/save-stripe-token", {
+      method: "POST",
+      body: JSON.stringify(token)
+    }).then(response => {
+      response.json().then(data => {
+        alert(`We are in business, ${data.email}`);
+      });
+    });
   };
   cartHandler = async event => {
     let sessionId = this.props.sessionId;
@@ -47,13 +66,15 @@ class unconnectedProductDetails extends Component {
       return;
     }
     console.log("cart add success! sending dispatch");
+
     if (this.props.product.stock === 0) {
       alert("SOLD OUT");
     } else {
+      let data = this.props.product;
+      this.props.dispatch({ type: "add-cart", data });
+      console.log(data);
       alert(
-        this.props.product.brand +
-          this.props.product.productName +
-          " is added to your shopping bag"
+        data.brand + " " + data.productName + " is added to your shopping bag"
       );
     }
   };
@@ -75,12 +96,44 @@ class unconnectedProductDetails extends Component {
             <p>{"$" + this.props.product.price}</p>
             <p>{this.props.product.stock} left in stock</p>
             <div>
-              <button
-                className="productDetailsButtons"
-                onClick={this.purchaseHandler}
+              <StripeCheckout
+                name="SPENDR" // the pop-in header title
+                description="" // the pop-in header subtitle
+                image="" // the pop-in header image (default none)
+                ComponentClass="div"
+                label="Buy the Thing" // text inside the Stripe button
+                panelLabel="Spend Money" // prepended to the amount in the bottom pay button
+                amount={1000000} // cents
+                currency="USD"
+                stripeKey="pk_test_L4ufjWYDNiycNY8gPs72WO7q00IpViddwi"
+                locale="en"
+                email="info@spendr.ca"
+                // Note: Enabling either address option will give the user the ability to
+                // fill out both. Addresses are sent as a second parameter in the token callback.
+                shippingAddress
+                billingAddress={false}
+                // Note: enabling both zipCode checks and billing or shipping address will
+                // cause zipCheck to be pulled from billing address (set to shipping if none provided).
+                zipCode={false}
+                alipay // accept Alipay (default false)
+                bitcoin // accept Bitcoins (default false)
+                allowRememberMe // "Remember Me" option (default true)
+                token={this.onToken} // submit callback
+                opened={this.onOpened} // called when the checkout popin is opened (no IE6/7)
+                closed={this.onClosed} // called when the checkout popin is closed (no IE6/7)
+                // Note: `reconfigureOnUpdate` should be set to true IFF, for some reason
+                // you are using multiple stripe keys
+                reconfigureOnUpdate={false}
+                // Note: you can change the event to `onTouchTap`, `onClick`, `onTouchStart`
+                // useful if you're using React-Tap-Event-Plugin
               >
-                Purchase
-              </button>
+                <button
+                  className="productDetailsButtons"
+                  onClick={this.onToken}
+                >
+                  Purchase
+                </button>
+              </StripeCheckout>
               <br />
               <button
                 className="productDetailsButtons"
