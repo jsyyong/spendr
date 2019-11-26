@@ -52,9 +52,9 @@ class unconnectedUserHomePage extends Component {
     console.log("/product response", body);
     this.setState({ products: body.reverse() });
   };
-  // componentDidMount = () => {
-  //   this.reload();
-  // };
+  componentDidMount = () => {
+    this.reload();
+  };
   submitHandler = async evt => {
     evt.preventDefault();
     let data = new FormData();

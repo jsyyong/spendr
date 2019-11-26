@@ -53,15 +53,20 @@ class unconnectedHomePage extends Component {
     await this.reloadCart();
   };
   render = () => {
+    // let newArrivals = this.props.products.slice().reverse
+
     return (
       <div className="hpProducts">
-        {this.props.products.map(product => (
-          <div className="eachHpProduct" key={"f" + product._id}>
-            <Link to={"/detail/" + product._id}>
-              <img height="590px" src={product.imgPath} />
-            </Link>
-          </div>
-        ))}
+        {this.props.products
+          .slice()
+          .reverse()
+          .map(product => (
+            <div className="eachHpProduct" key={"f" + product._id}>
+              <Link to={"/detail/" + product._id}>
+                <img height="590px" src={product.imgPath} />
+              </Link>
+            </div>
+          ))}
         <DeleteForm reload={this.reload} />
       </div>
     );

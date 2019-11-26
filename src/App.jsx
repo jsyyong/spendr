@@ -36,8 +36,8 @@ class unconnectedApp extends Component {
       );
     }
     return (
-      <div>
-        <div className="divSignUpButton">
+      <>
+        <div className="divLoginButton">
           <Link to="/signUpLogin">
             <button>{this.props.username}</button>
           </Link>
@@ -45,7 +45,7 @@ class unconnectedApp extends Component {
         <div className="divSignUpButton">
           <Logout />
         </div>
-      </div>
+      </>
     );
   };
   // 1
@@ -150,42 +150,38 @@ class unconnectedApp extends Component {
     );
   };
   renderHomeScreen = () => {
-    if (/*this.props.username === "" && */ this.props.loggedIn === false) {
-      return (
-        <div className="containerAll">
-          <div className="nav-bar">
-            <Link to="/">
-              <button>
-                <h1>SPENDR</h1>
-              </button>
+    return (
+      <div className="containerAll">
+        <div className="nav-bar">
+          <Link to="/">
+            <button>
+              <h1>SPENDR</h1>
+            </button>
+          </Link>
+          <Search />
+          <div className="divCart">
+            <Link to="/cart">
+              <button>Cart</button>
             </Link>
-            <Search />
-            <div className="divCart">
-              <Link to="/cart">
-                <button>Cart</button>
-              </Link>
-            </div>
+          </div>
 
-            {this.loginOrWelcome()}
-            {/*<Link to="/signUpLogin">
+          {this.loginOrWelcome()}
+          {/*<Link to="/signUpLogin">
                 <button className="loginButton">Login</button>
       </Link>*/}
-          </div>
-
-          {/* <div className="containerTitles"></div> */}
-          <div className="containerHp">
-            <p id="New-arrivals">New Arrivals</p>
-            <p id="Collection">Collection</p>
-            <p id="Cart">Cart</p>
-            <PreviewCart />
-            <HomePage />
-            <Collection />
-          </div>
         </div>
-      );
-    } else {
-      // return <UserHomePage username={this.props.username} />;
-    }
+
+        {/* <div className="containerTitles"></div> */}
+        <div className="containerHp">
+          <p id="New-arrivals">New Arrivals</p>
+          <p id="Collection">Collection</p>
+          <p id="Cart">Cart</p>
+          <PreviewCart />
+          <HomePage />
+          <Collection />
+        </div>
+      </div>
+    );
   };
 
   // 6
