@@ -21,16 +21,30 @@ class unconnectedApp extends Component {
     console.log("current user", this.props.username);
     if (this.props.username === "") {
       return (
-        <Link to="/signUpLogin">
-          <button className="loginButton">Login</button>
-        </Link>
+        <>
+          <div className="divSignUpButton">
+            <Link to="/signUpLogin">
+              <button>Sign Up</button>
+            </Link>
+          </div>
+          <div className="divLoginButton">
+            <Link to="/signUpLogin">
+              <button>Login</button>
+            </Link>
+          </div>
+        </>
       );
     }
     return (
       <div>
-        <Link to="/signUpLogin">
-          <button className="loginButton">{this.props.username}</button>
-        </Link>
+        <div className="divSignUpButton">
+          <Link to="/signUpLogin">
+            <button>{this.props.username}</button>
+          </Link>
+        </div>
+        <div className="divSignUpButton">
+          <Logout />
+        </div>
       </div>
     );
   };
@@ -79,12 +93,10 @@ class unconnectedApp extends Component {
                 <button className="signUpButton">SignUp</button>
               </Link>
             </div>
-            <div className="divLoginButton">
-              {this.loginOrWelcome()}
-              {/*<Link to="/signUpLogin">
+            {this.loginOrWelcome()}
+            {/*<Link to="/signUpLogin">
                 <button className="loginButton">Login</button>
       </Link>*/}
-            </div>
           </div>
           <SearchResults />
         </div>
@@ -153,15 +165,11 @@ class unconnectedApp extends Component {
                 <button>Cart</button>
               </Link>
             </div>
-            <div className="divSignUpButton">
-              <Logout />
-            </div>
-            <div className="divLoginButton">
-              {this.loginOrWelcome()}
-              {/*<Link to="/signUpLogin">
+
+            {this.loginOrWelcome()}
+            {/*<Link to="/signUpLogin">
                 <button className="loginButton">Login</button>
       </Link>*/}
-            </div>
           </div>
 
           {/* <div className="containerTitles"></div> */}
