@@ -34,6 +34,7 @@ let reducer = (state, action) => {
   if (action.type === "logout") {
     return { ...state, username: "", sessionId: "" };
   }
+
   return state;
 };
 
@@ -46,7 +47,8 @@ let store = createStore(
     searchResults: [],
     products: [],
     cartItems: [],
-    sessionId: ""
+    sessionId: "",
+    messages: []
   },
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );

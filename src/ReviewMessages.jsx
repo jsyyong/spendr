@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import DeleteSingleMessage from "./DeleteSingleMessage.jsx";
 
 let unique = arr => {
   let obj = {};
@@ -18,7 +19,14 @@ let usernameList = names => {
   );
 };
 
-class unconnectedReviewMessages extends component {
+class unconnectedReviewMessages extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      messages: [],
+      timeStamp: ""
+    };
+  }
   usernames = () => {
     let now = new Date() / 1;
     let recentMessages = this.props.messages.filter(msg => {
@@ -32,13 +40,16 @@ class unconnectedReviewMessages extends component {
 
   componentDidMount = () => {
     let updateMessages = async () => {
-      let response = await fetch("/reviews?username=" + state.username);
+      let productId = this.props.productId;
+      let response = await fetch("/reviews?productId=" + productId, {
+        method: "POST"
+      });
       let responseBody = await response.text();
       console.log("response from reviews", responseBody);
       let parsed = JSON.parse(responseBody);
       console.log("parsed", parsed);
-      this.props.dispatch({
-        type: "set-messages",
+
+      this.setState({
         messages: parsed
       });
     };
@@ -46,18 +57,30 @@ class unconnectedReviewMessages extends component {
   };
 
   render = () => {
-    let msgToElement = e => (
-      <li>
-        {" "}
-        [{e.timestamp}] {e.username}:{e.message}{" "}
-      </li>
+    let msgToElementAdmin = e => (
+      <div>
+        [Admin Privilege] {e.username} wrote: {e.message}{" "}
+        <DeleteSingleMessage
+          productId={e._id}
+          reload={this.componentDidMount}
+        />
+      </div>
     );
+    let msgToElement = e => (
+      <div>
+        {e.username} wrote: {e.message}{" "}
+      </div>
+    );
+    if (this.props.username === "jeff") {
+      return (
+        <div class="two-col">
+          <div>{this.state.messages.map(msgToElementAdmin)}</div>
+        </div>
+      );
+    }
     return (
       <div class="two-col">
-        <div>{usernameList(this.usernames())}</div>
-        <div>
-          <ul>{this.props.messages.map(msgToElement)}</ul>
-        </div>
+        <div>{this.state.messages.map(msgToElement)}</div>
       </div>
     );
   };
@@ -66,7 +89,8 @@ class unconnectedReviewMessages extends component {
 let mapStatetoProps = state => {
   return {
     reviews: state.reviews,
-    username: state.username
+    username: state.username,
+    messages: state.messages
   };
 };
 let ReviewMessages = connect(mapStatetoProps)(unconnectedReviewMessages);

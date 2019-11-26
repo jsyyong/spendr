@@ -35,11 +35,18 @@ let generateId = () => {
 app.post("/newReview", upload.none(), (req, res) => {
   let username = req.body.username;
   let message = req.body.msg;
+  let productId = req.body.productId;
+  let timeStamp = req.body.timeStamp;
   console.log("inside /newReview endpoint msg:" + message + " name" + username);
   dbo
     .collection("reviews")
     .insertOne(
-      { message: message, username: username },
+      {
+        message: message,
+        username: username,
+        productId: productId,
+        timeStamp: timeStamp
+      },
       (err, messageObject) => {
         if (err) {
           console.log("/newReview failed :(");
@@ -54,13 +61,21 @@ app.post("/newReview", upload.none(), (req, res) => {
 
 //reviewMssages endpoint
 app.post("/reviews", function(req, res) {
-  if (sessions[req.cookies.sid] === undefined) {
-    res.send(JSON.stringify({ loggedOut: true }));
-    return;
-  }
-  let msgs = [...messages];
-  while (msgs.length > 20) msgs.shift();
-  res.send(JSON.stringify(msgs));
+  console.log("inside /reviews endpoint");
+  let productId = req.query.productId;
+  dbo
+    .collection("reviews")
+    .find({ productId: productId })
+    .toArray((err, reviews) => {
+      if (err) {
+        console.log("error in reviews", err);
+        res.send(JSON.stringify({ success: false }));
+        return;
+      }
+      console.log("res.sending reviews for id:", productId);
+      console.log("reviews", reviews);
+      res.send(JSON.stringify(reviews));
+    });
 });
 
 //deleteAll Endpoint
@@ -156,6 +171,21 @@ app.post("/deleteSingle", upload.none(), (req, res) => {
       console.log("/deleteSingle fail");
       res.send(JSON.stringify({ success: false }));
     }
+    res.send(JSON.stringify({ success: true }));
+  });
+});
+
+//deleteSingleMsg endpoint
+app.post("/deleteSingleMsg", upload.none(), (req, res) => {
+  console.log("inside /deleteSingleMsg");
+  let _id = req.query._id;
+  console.log("req query", _id);
+  dbo.collection("reviews").remove({ _id: ObjectID(_id) }, err => {
+    if (err) {
+      console.log("/deleteSingleMsg fail");
+      res.send(JSON.stringify({ success: false }));
+    }
+    console.log("Msg deletion success!!");
     res.send(JSON.stringify({ success: true }));
   });
 });
