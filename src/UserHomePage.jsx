@@ -105,7 +105,7 @@ class unconnectedUserHomePage extends Component {
       <div>
         <div className="nav-bar">
           <Link to="/">
-            <button onClick={this.reload()}>
+            <button>
               <h1>SPENDR</h1>
             </button>
           </Link>

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-class unconnectedDeleteSingleCart extends Component {
+class unconnectedDeleteSingleProduct extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -12,7 +12,7 @@ class unconnectedDeleteSingleCart extends Component {
     console.log("the unique id", this.state._id);
     event.preventDefault();
     let _id = this.state._id;
-    let response = await fetch("/deleteSingleCart?_id=" + _id, {
+    let response = await fetch("/deleteSingleProduct?_id=" + _id, {
       method: "POST"
     });
     let body = await response.json();
@@ -22,23 +22,23 @@ class unconnectedDeleteSingleCart extends Component {
     }
     console.log("deleteHandler body", body);
     //this.props.reload();
-    //await this.props.reloadCart();
-    let response2 = await fetch("/cart?username=" + this.props.username, {
-      method: "POST"
-    });
-
+    //await this.props.reloadProduct();
+    let response2 = await fetch("/product", { method: "POST" });
     let body2 = await response2.text();
     body2 = JSON.parse(body2);
     console.log("/product response", body2);
-    this.props.dispatch({ type: "set-cartItems", cartItems: body2 });
+    this.props.dispatch({ type: "set-products", products: body2 });
   };
 
   render = () => {
-    return (
-      <button type="button" onClick={this.deleteHandler}>
-        Delete
-      </button>
-    );
+    if (this.props.username === "jeff") {
+      return (
+        <button type="button" onClick={this.deleteHandler}>
+          Delete
+        </button>
+      );
+    }
+    return <div></div>;
   };
 }
 let mapStateToProps = state => {
@@ -46,5 +46,7 @@ let mapStateToProps = state => {
     username: state.username
   };
 };
-let DeleteSingleCart = connect(mapStateToProps)(unconnectedDeleteSingleCart);
-export default DeleteSingleCart;
+let DeleteSingleProduct = connect(mapStateToProps)(
+  unconnectedDeleteSingleProduct
+);
+export default DeleteSingleProduct;

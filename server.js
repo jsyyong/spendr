@@ -30,6 +30,52 @@ let generateId = () => {
 };
 
 // Your endpoints go after this line
+
+//add newReview endpoint
+app.post("/newReview", upload.none(), (req, res) => {
+  let username = req.body.username;
+  let message = req.body.msg;
+  let productId = req.body.productId;
+  let timeStamp = req.body.timeStamp;
+  console.log("inside /newReview endpoint msg:" + message + " name" + username);
+  dbo.collection("reviews").insertOne(
+    {
+      message: message,
+      username: username,
+      productId: productId,
+      timeStamp: timeStamp
+    },
+    (err, messageObject) => {
+      if (err) {
+        console.log("/newReview failed :(");
+        res.send(JSON.stringify({ success: false }));
+        return;
+      }
+      console.log("/newReview success!!");
+      res.send(JSON.stringify({ success: true }));
+    }
+  );
+});
+
+//reviewMssages endpoint
+app.post("/reviews", function(req, res) {
+  console.log("inside /reviews endpoint");
+  let productId = req.query.productId;
+  dbo
+    .collection("reviews")
+    .find({ productId: productId })
+    .toArray((err, reviews) => {
+      if (err) {
+        console.log("error in reviews", err);
+        res.send(JSON.stringify({ success: false }));
+        return;
+      }
+      console.log("res.sending reviews for id:", productId);
+      console.log("reviews", reviews);
+      res.send(JSON.stringify(reviews));
+    });
+});
+
 //deleteAll Endpoint
 app.post("/deleteAll", upload.none(), (req, res) => {
   console.log("inside /deleteAll");
@@ -79,14 +125,14 @@ app.post("/cart", upload.none(), (req, res) => {
         res.send(JSON.stringify({ success: false }));
         return;
       }
-      console.log("res.sending cartItems")
+      console.log("res.sending cartItems");
       res.send(JSON.stringify(cartItems));
     });
 });
 
 //addToCart endpoint
 app.post("/addToCart", upload.none(), (req, res) => {
-  let sessionId = req.body.sessionId
+  let sessionId = req.body.sessionId;
   console.log("session id from /addToCart", sessionId);
   dbo.collection("sessions").findOne({ sessionId: sessionId }, (err, user) => {
     if (err || user === null) {
@@ -95,11 +141,22 @@ app.post("/addToCart", upload.none(), (req, res) => {
       return;
     }
     console.log("adding the product to user's session");
-    dbo.collection("cart").insertOne({sessionId: sessionId, brand: req.body.brand, id: req.body.id, username: req.body.username, description: req.body.description, imgPath: req.body.imgPath, price: req.body.price, productName: req.body.productName, seller: req.body.seller, size: req.body.size, stock: req.body.stock})
+    dbo.collection("cart").insertOne({
+      sessionId: sessionId,
+      brand: req.body.brand,
+      id: req.body.id,
+      username: req.body.username,
+      description: req.body.description,
+      imgPath: req.body.imgPath,
+      price: req.body.price,
+      productName: req.body.productName,
+      seller: req.body.seller,
+      size: req.body.size,
+      stock: req.body.stock
+    });
     res.send(JSON.stringify({ success: true }));
-    
   });
-  return
+  return;
 });
 
 //deleteSingle endpoint
@@ -116,6 +173,21 @@ app.post("/deleteSingle", upload.none(), (req, res) => {
   });
 });
 
+//deleteSingleMsg endpoint
+app.post("/deleteSingleMsg", upload.none(), (req, res) => {
+  console.log("inside /deleteSingleMsg");
+  let _id = req.query._id;
+  console.log("req query", _id);
+  dbo.collection("reviews").remove({ _id: ObjectID(_id) }, err => {
+    if (err) {
+      console.log("/deleteSingleMsg fail");
+      res.send(JSON.stringify({ success: false }));
+    }
+    console.log("Msg deletion success!!");
+    res.send(JSON.stringify({ success: true }));
+  });
+});
+
 //deleteSingleCart endpoint
 app.post("/deleteSingleCart", upload.none(), (req, res) => {
   console.log("inside /deleteSingleCart");
@@ -126,7 +198,22 @@ app.post("/deleteSingleCart", upload.none(), (req, res) => {
       console.log("/deleteSingleCart fail");
       res.send(JSON.stringify({ success: false }));
     }
-    console.log("cart deletion success!!")
+    console.log("cart deletion success!!");
+    res.send(JSON.stringify({ success: true }));
+  });
+});
+
+//deleteSingleProduct endpoint
+app.post("/deleteSingleProduct", upload.none(), (req, res) => {
+  console.log("inside /deleteSingleProduct");
+  let _id = req.query._id;
+  console.log("req query", _id);
+  dbo.collection("products").remove({ _id: ObjectID(_id) }, err => {
+    if (err) {
+      console.log("/deleteSingleProduct fail");
+      res.send(JSON.stringify({ success: false }));
+    }
+    console.log("Product deletion success!!");
     res.send(JSON.stringify({ success: true }));
   });
 });

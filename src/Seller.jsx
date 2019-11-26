@@ -5,6 +5,7 @@ import ProductDetails from "./ProductDetails.jsx";
 import { Route, BrowserRouter } from "react-router-dom";
 import Search from "./Search.jsx";
 import Logout from "./Logout.jsx";
+import DeleteSingleProduct from "./DeleteSingleProduct.jsx";
 class unconnectedSeller extends Component {
   constructor(props) {
     super(props);
