@@ -40,17 +40,20 @@ class unconnectedSeller extends Component {
           </div>
         </div>
         <div className="containerSeller">
-          <h2 className="user">{this.props.username + "*****"}</h2>
+          <h2 className="user">{this.props.seller + "*****"}</h2>
           <h2 className="search">Search</h2>
           <h2 className="sort">Sort</h2>
           <h2 className="msg">Message Seller</h2>
 
           <div className="flex-products">
             {this.props.sellerProduct.map(product => (
-              <div className="eachProductSeller" key={product._id}>
-                <Link to={"/detail/" + product._id}>
-                  <img height="600px" src={product.imgPath} />
-                </Link>
+              <div>
+                <div className="eachProductSeller" key={product._id}>
+                  <Link to={"/detail/" + product._id}>
+                    <img height="600px" src={product.imgPath} />
+                  </Link>
+                </div>
+                <DeleteSingleProduct product={this.state.product} />
               </div>
             ))}
           </div>
@@ -61,7 +64,7 @@ class unconnectedSeller extends Component {
 }
 
 let mapStateToProps = st => {
-  return { username: st.username };
+  return { username: st.username, seller: st.seller };
 };
 let Seller = connect(mapStateToProps)(unconnectedSeller);
 export default Seller;

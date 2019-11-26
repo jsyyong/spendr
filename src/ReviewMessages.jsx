@@ -48,7 +48,10 @@ class unconnectedReviewMessages extends Component {
       console.log("response from reviews", responseBody);
       let parsed = JSON.parse(responseBody);
       console.log("parsed", parsed);
-
+      /*this.props.dispatch({
+        type: "set-messages",
+        messages: parsed
+      });*/
       this.setState({
         messages: parsed
       });
