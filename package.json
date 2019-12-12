@@ -1,11 +1,14 @@
 {
   "name": "webpack-react-tutorial",
   "version": "1.0.0",
+  "homepage": "https://rkmaboy.github.io/spendr",
   "description": "",
   "main": "index.js",
   "scripts": {
     "start": "nodemon server.js",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "keywords": [],
   "author": "Jacques Le Normand",
@@ -28,8 +31,10 @@
     "@babel/plugin-proposal-class-properties": "^7.3.4",
     "chokidar": "^3.0.0",
     "cookie-parser": "^1.4.4",
+    "create-react-app": "^3.3.0",
     "emotion": "^10.0.23",
     "express": "^4.17.1",
+    "gh-pages": "^2.1.1",
     "mongodb": "^3.3.4",
     "multer": "^1.4.2",
     "nodemon": "^2.0.0",
